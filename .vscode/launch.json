@@ -1,7 +1,7 @@
 {
   "configurations": [
     {
-      "command": "pnpx turbo run dev",
+      "command": "pnpm exec turbo run dev",
       "name": "Debug (All)",
       "request": "launch",
       "serverReadyAction": {
@@ -14,7 +14,7 @@
       "type": "node-terminal"
     },
     {
-      "command": "pnpx turbo run dev --filter web",
+      "command": "pnpm exec turbo run dev --filter web",
       "internalConsoleOptions": "neverOpen",
       "name": "Debug (Web)",
       "request": "launch",
@@ -28,9 +28,13 @@
       "type": "node-terminal"
     },
     {
+      "address": "localhost",
+      "localRoot": "${workspaceFolder}/apps/api",
       "name": "Debug (api)",
+      "port": 9229,
       "preLaunchTask": "Wrangler Dev",
       "request": "attach",
+      "skipFiles": ["<node_internals>/**"],
       "type": "node"
     }
   ],

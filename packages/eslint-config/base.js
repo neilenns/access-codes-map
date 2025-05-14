@@ -13,12 +13,12 @@ export const config = tseslint.config(
   {
     ignores: ["dist/**", "eslint.config.js"],
   },
-  eslintConfigPrettier,
   eslint.configs.recommended,
   eslintPluginUnicorn.configs.recommended,
   eslintPluginSecurity.configs.recommended,
   tseslint.configs.strictTypeChecked,
   tseslint.configs.stylisticTypeChecked,
+  eslintConfigPrettier,
   {
     languageOptions: {
       parserOptions: {

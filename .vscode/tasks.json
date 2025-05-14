@@ -1,7 +1,7 @@
 {
   "tasks": [
     {
-      "command": "pnpx turbo run dev --filter api",
+      "command": "pnpm exec turbo run dev --filter api",
       "detail": "Starts Cloudflare Worker in local development mode.",
       "icon": {
         "color": "terminal.ansiYellow",
@@ -21,7 +21,7 @@
           "file": 1,
           "line": 2,
           "message": 4,
-          "regexp": "^(?<file>.+\\.rs):(?<line>\\d+):(?<col>\\d+):\\s+(?<message>.*)$"
+          "regexp": "^(?<file>.+\\.(ts|js)):(?<line>\\d+):(?<col>\\d+):\\s+(?<message>.*)$"
         },
         "source": "wrangler"
       },
