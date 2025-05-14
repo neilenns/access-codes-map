@@ -1,0 +1,24 @@
+# Ignore all node_modules in root and workspaces
+**/node_modules/
+
+# Build artifacts in any workspace
+**/dist/
+**/build/
+**/out/
+**/.next/
+**/coverage/
+
+# Env files (including in subfolders)
+**/.env*
+!**/.env.example
+
+# Common lockfiles (use only the root one if needed)
+**/pnpm-lock.yaml
+**/package-lock.json
+**/yarn.lock
+
+# Logs
+**/*.log
+
+# Git data
+**/.git/

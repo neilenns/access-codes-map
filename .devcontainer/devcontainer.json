@@ -1,0 +1,7 @@
+{
+  "$schema": "https://raw.githubusercontent.com/devcontainers/spec/main/schemas/devContainer.schema.json",
+  "dockerComposeFile": "docker-compose.yaml",
+  "name": "Access codes map development",
+  "service": "app",
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}"
+}
