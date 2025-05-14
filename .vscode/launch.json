@@ -1,0 +1,38 @@
+{
+  "configurations": [
+    {
+      "command": "pnpx turbo run dev",
+      "name": "Debug (All)",
+      "request": "launch",
+      "serverReadyAction": {
+        "action": "debugWithEdge",
+        "killOnServerStop": true,
+        "pattern": "- Local:.+(https?://.+)",
+        "uriFormat": "%s/admin/scenarios",
+        "webRoot": "${workspaceFolder}/apps/web/src"
+      },
+      "type": "node-terminal"
+    },
+    {
+      "command": "pnpx turbo run dev --filter web",
+      "internalConsoleOptions": "neverOpen",
+      "name": "Debug (Web)",
+      "request": "launch",
+      "serverReadyAction": {
+        "action": "debugWithEdge",
+        "killOnServerStop": true,
+        "pattern": "- Local:.+(https?://.+)",
+        "uriFormat": "%s",
+        "webRoot": "${workspaceFolder}/apps/web/src"
+      },
+      "type": "node-terminal"
+    },
+    {
+      "name": "Debug (api)",
+      "preLaunchTask": "Wrangler Dev",
+      "request": "attach",
+      "type": "node"
+    }
+  ],
+  "version": "0.2.0"
+}

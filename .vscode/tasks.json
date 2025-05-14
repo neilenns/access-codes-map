@@ -1,0 +1,32 @@
+{
+  "tasks": [
+    {
+      "command": "pnpx turbo run dev --filter api",
+      "detail": "Starts Cloudflare Worker in local development mode.",
+      "icon": {
+        "color": "terminal.ansiYellow",
+        "id": "cloud"
+      },
+      "isBackground": true,
+      "label": "Wrangler Dev",
+      "problemMatcher": {
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "(Starting|Reloading) local server\\.\\.\\.",
+          "endsPattern": "(Ready|Updated and ready) on"
+        },
+        "owner": "wrangler",
+        "pattern": {
+          "column": 3,
+          "file": 1,
+          "line": 2,
+          "message": 4,
+          "regexp": "^(?<file>.+\\.rs):(?<line>\\d+):(?<col>\\d+):\\s+(?<message>.*)$"
+        },
+        "source": "wrangler"
+      },
+      "type": "shell"
+    }
+  ],
+  "version": "2.0.0"
+}
