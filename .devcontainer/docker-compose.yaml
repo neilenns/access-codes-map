@@ -1,0 +1,18 @@
+services:
+  app:
+    image: ghcr.io/neilenns/devcontainers/monorepo:latest
+    volumes:
+      - ../..:/workspaces:cached
+      - pnpm-store-devcontainer:/pnpm-store
+    env_file: 
+      - path: devcontainer.env
+        required: true
+      - path: devcontainer.env.overrides
+        required: false
+
+    # Overrides default command so things don't shut down after the process ends.
+    command: sleep infinity
+
+volumes:
+  pnpm-store-devcontainer:
+    name: pnpm-store-devcontainer
