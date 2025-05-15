@@ -48,6 +48,9 @@ importers:
         specifier: ^4.7.9
         version: 4.7.9
     devDependencies:
+      '@workspace/eslint-config':
+        specifier: workspace:*
+        version: link:../../packages/eslint-config
       '@workspace/typescript-config':
         specifier: workspace:*
         version: link:../../packages/typescript-config

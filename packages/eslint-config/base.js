@@ -2,7 +2,11 @@ import eslint from "@eslint/js";
 import eslintConfigPrettier from "eslint-config-prettier";
 import eslintPluginSecurity from "eslint-plugin-security";
 import eslintPluginUnicorn from "eslint-plugin-unicorn";
+import { dirname } from "path";
 import tseslint from "typescript-eslint";
+import { fileURLToPath } from "url";
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 /**
  * A shared ESLint configuration for the repository.
@@ -11,7 +15,7 @@ import tseslint from "typescript-eslint";
  * */
 export const config = tseslint.config(
   {
-    ignores: ["dist/**", "eslint.config.js"],
+    ignores: ["dist/**", "eslint.config.js", "node_modules/**"],
   },
   eslint.configs.recommended,
   eslintPluginUnicorn.configs.recommended,
@@ -23,7 +27,7 @@ export const config = tseslint.config(
     languageOptions: {
       parserOptions: {
         projectService: true,
-        tsconfigRootDir: import.meta.dirname,
+        tsconfigRootDir: __dirname,
       },
     },
   },
