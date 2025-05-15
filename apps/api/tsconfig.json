@@ -1,7 +1,8 @@
 {
   "compilerOptions": {
     "jsx": "react-jsx",
-    "jsxImportSource": "hono/jsx"
+    "jsxImportSource": "hono/jsx",
+    "types": ["node", "./src/types/worker-configuration.d.ts"]
   },
   "extends": "@workspace/typescript-config/base"
 }

@@ -1,5 +1,12 @@
 {
   "$schema": "https://raw.githubusercontent.com/devcontainers/spec/main/schemas/devContainer.schema.json",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "alexcvzz.vscode-sqlite"
+      ]
+    }
+  },
   "dockerComposeFile": "docker-compose.yaml",
   "forwardPorts": [8787],
   "name": "Access codes map development",

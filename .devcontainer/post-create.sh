@@ -5,7 +5,6 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 ### Node.js setup
-
 . "${NVM_DIR}/nvm.sh" && nvm install && corepack install
 
 ### pnpm setup
@@ -24,7 +23,7 @@ grep -qxF 'export PATH="$PNPM_HOME:$PATH"' ~/.zshrc || \
 
 echo "⬇️  Installing pnpm packages..."
 
-pnpm --silent add -g turbo@2.5.0
+pnpm --silent add -g turbo@2.5.0 wrangler
 pnpm --silent install --frozen-lockfile
 
 ### Aliases
@@ -35,3 +34,11 @@ grep -qxF "alias npm='pnpm'" ~/.zshrc || \
 ### Pre-commit hooks
 echo "🔗 Installing pre-commit hooks (takes a minute, be patient)..."
 pre-commit install --install-hooks > /dev/null
+
+### SQLite setup
+echo "⬇️  Installing sqlite..."
+sudo apt-get update -qq > /dev/null && sudo apt-get install -qq -y sqlite3 > /dev/null
+
+### Seed database
+echo "🛢️  Seeding database..."
+cd apps/api && pnpm run db:seed > /dev/null
