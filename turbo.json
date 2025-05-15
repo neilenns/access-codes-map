@@ -2,9 +2,15 @@
   "$schema": "./node_modules/turbo/schema.json",
   "globalPassThroughEnv": ["DEPLOY_ENV", "NODE_ENV"],
   "tasks": {
+    "ci": {
+      "dependsOn": ["^ci"]
+    },
     "dev": {
       "dependsOn": ["^dev"],
       "env": ["DISABLE_AUTH"]
+    },
+    "lint": {
+      "dependsOn": ["^lint"]
     }
   }
 }
