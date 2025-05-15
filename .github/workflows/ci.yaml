@@ -6,9 +6,11 @@ on:
       - main
 
 env:
-  VERSION: ${{ github.sha }}
-  TURBO_SCM_BASE: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha || github.event.before }}
   PNPM_STORE: "/pnpm-store"
+  TURBO_SCM_BASE: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha || github.event.before }}
+  TURBO_TEAM: ${{ vars.TURBO_TEAM }}
+  TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+  VERSION: ${{ github.sha }}
 
 jobs:
   monorepo:
