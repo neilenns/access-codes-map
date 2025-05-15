@@ -1,12 +1,10 @@
-import { type D1Database } from "@cloudflare/workers-types";
-
-export async function getAllLocations(db: D1Database) {
-  const { results } = await db.prepare("SELECT * FROM locations").all();
+export async function getAllLocations(database: D1Database) {
+  const { results } = await database.prepare("SELECT * FROM locations").all();
   return results;
 }
 
 export async function createLocation(
-  db: D1Database,
+  database: D1Database,
   {
     title,
     latitude,
@@ -23,7 +21,7 @@ export async function createLocation(
     hasToilet: boolean;
   },
 ) {
-  await db
+  await database
     .prepare(
       `INSERT INTO locations 
         (id, title, latitude, longitude, note, createdBy, created, hasToilet) 
