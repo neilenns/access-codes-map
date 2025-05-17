@@ -1,6 +1,19 @@
 {
   "configurations": [
     {
+      "command": "pnpm run db:studio",
+      "cwd": "${workspaceFolder}/apps/api",
+      "name": "Drizzle studio",
+      "request": "launch",
+      "serverReadyAction": {
+        "action": "debugWithEdge",
+        "killOnServerStop": true,
+        "pattern": "running on",
+        "uriFormat": "https://local.drizzle.studio?port=8788&host=localhost"
+      },
+      "type": "node-terminal"
+    },
+    {
       "command": "pnpm exec turbo run dev",
       "name": "Debug (All)",
       "request": "launch",
