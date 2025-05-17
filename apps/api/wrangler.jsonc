@@ -7,4 +7,28 @@
     "ip": "0.0.0.0", // Required to enable accessing the dev server from outside the devcontainer.
     "port": 8787, // Port to run the dev server on.
   },
+  "env": {
+    "dev": {
+      "d1_databases": [
+        {
+          "binding": "ACCESS_CODES_DB",
+          "database_id": "5a20bb2b-7f7c-454a-b8d6-f5505549de49",
+          "database_name": "access-codes-map-dev",
+          "migrations_dir": "drizzle/migrations",
+          "migrations_table": "__drizzle_migrations",
+        },
+      ],
+    },
+    "prod": {
+      "d1_databases": [
+        {
+          "binding": "ACCESS_CODES_DB",
+          "database_id": "e9eb4ee3-9028-429d-9d77-2c67e1cfb255",
+          "database_name": "access-codes-map-prod",
+          "migrations_dir": "drizzle/migrations",
+          "migrations_table": "__drizzle_migrations",
+        },
+      ],
+    },
+  },
 }

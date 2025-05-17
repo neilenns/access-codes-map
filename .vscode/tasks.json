@@ -1,6 +1,20 @@
 {
   "tasks": [
     {
+      "command": "pnpm run db:seed",
+      "detail": "Deletes the database and recreates it with seed data.",
+      "icon": {
+        "color": "terminal.ansiGreen",
+        "id": "database"
+      },
+      "label": "Seed DB",
+      "options": {
+        "cwd": "${workspaceFolder}/apps/api"
+      },
+      "problemMatcher": [],
+      "type": "shell"
+    },
+    {
       "command": "pnpm exec turbo run dev --filter api",
       "detail": "Starts Cloudflare Worker in local development mode.",
       "icon": {
@@ -13,7 +27,7 @@
         "background": {
           "activeOnStart": true,
           "beginsPattern": "(Starting|Reloading) local server\\.\\.\\.",
-          "endsPattern": "(Ready|Updated and ready) on"
+          "endsPattern": "open a browser"
         },
         "owner": "wrangler",
         "pattern": {

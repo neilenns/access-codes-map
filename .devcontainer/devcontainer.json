@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/devcontainers/spec/main/schemas/devContainer.schema.json",
   "dockerComposeFile": "docker-compose.yaml",
-  "forwardPorts": [8787],
+  "forwardPorts": [8787, 8788],
   "name": "Access codes map development",
   "service": "app",
   "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}"

@@ -1,9 +1,28 @@
 import { Hono } from "hono";
+import { createDatabase } from "./db/index.ts";
+import { CloudflareEnvironment } from "./types/cloudflare.ts";
+const app = new Hono<CloudflareEnvironment>();
 
-const app = new Hono();
+app.get("/", async (c) => {
+  try {
+    const database = createDatabase(c.env);
 
-app.get("/", (c) => {
-  return c.text("Hello Hono!");
+    // Fetch all records from the locations table with related users
+    const result = await database.query.locations.findMany({
+      with: {
+        createdBy: true,
+        modifiedBy: true,
+      },
+    });
+
+    return c.json(result);
+  } catch (error) {
+    console.error("Error fetching locations:", error);
+    return c.json({ error: "Internal Server Error" }, 500);
+  }
 });
 
-export default app;
+// Add worker event handling
+export default {
+  fetch: app.fetch,
+};
