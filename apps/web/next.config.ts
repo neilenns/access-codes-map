@@ -8,4 +8,6 @@ export default nextConfig;
 // https://opennext.js.org/cloudflare/get-started#11-develop-locally
 import { initOpenNextCloudflareForDev } from "@opennextjs/cloudflare";
 
-void initOpenNextCloudflareForDev();
+void initOpenNextCloudflareForDev({
+  environment: "dev",
+});
