@@ -16,6 +16,7 @@ reviews:
   path_filters:
     - "!apps/web/src/components/ui/**"
     - "!apps/web/src/hooks/**"
+    - "!apps/api/drizzle/**"
   path_instructions:
     - path: "**/*.tsx"
       instructions: |

@@ -4,17 +4,22 @@ import { CloudflareEnvironment } from "./types/cloudflare.ts";
 const app = new Hono<CloudflareEnvironment>();
 
 app.get("/", async (c) => {
-  const database = createDatabase(c.env);
+  try {
+    const database = createDatabase(c.env);
 
-  // Fetch all records from the locations table with related users
-  const result = await database.query.locations.findMany({
-    with: {
-      createdBy: true,
-      modifiedBy: true,
-    },
-  });
+    // Fetch all records from the locations table with related users
+    const result = await database.query.locations.findMany({
+      with: {
+        createdBy: true,
+        modifiedBy: true,
+      },
+    });
 
-  return c.json(result);
+    return c.json(result);
+  } catch (error) {
+    console.error("Error fetching locations:", error);
+    return c.json({ error: "Internal Server Error" }, 500);
+  }
 });
 
 // Add worker event handling
