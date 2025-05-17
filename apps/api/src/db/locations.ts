@@ -1,8 +1,8 @@
 import { relations, sql } from "drizzle-orm";
 import { integer, real, sqliteTable, text } from "drizzle-orm/sqlite-core";
-import { userTable } from "./users.ts";
+import { users } from "./users.ts";
 
-export const locationTable = sqliteTable("locations", {
+export const locations = sqliteTable("locations", {
   id: integer().primaryKey({ autoIncrement: true }),
   title: text().notNull(),
   latitude: real().notNull(),
@@ -12,20 +12,20 @@ export const locationTable = sqliteTable("locations", {
     .notNull()
     .default(sql`(CURRENT_TIMESTAMP)`),
   hasToilet: integer({ mode: "boolean" }).notNull(),
-  createdById: text().references(() => userTable.id),
-  modifiedById: text().references(() => userTable.id),
+  createdById: text().references(() => users.id),
+  modifiedById: text().references(() => users.id),
   lastModified: text()
     .notNull()
     .default(sql`(CURRENT_TIMESTAMP)`),
 });
 
-export const locationRelations = relations(locationTable, ({ one }) => ({
-  createdBy: one(userTable, {
-    fields: [locationTable.createdById],
-    references: [userTable.id],
+export const locationsRelations = relations(locations, ({ one }) => ({
+  createdBy: one(users, {
+    fields: [locations.createdById],
+    references: [users.id],
   }),
-  modifiedBy: one(userTable, {
-    fields: [locationTable.modifiedById],
-    references: [userTable.id],
+  modifiedBy: one(users, {
+    fields: [locations.modifiedById],
+    references: [users.id],
   }),
 }));
