@@ -6,9 +6,9 @@ CREATE TABLE `locations` (
 	`note` text,
 	`created` text DEFAULT (CURRENT_TIMESTAMP) NOT NULL,
 	`hasToilet` integer NOT NULL,
-	`createdById` integer,
-	`modifiedById` integer,
-	`lastModified` text NOT NULL,
+	`createdById` text,
+	`modifiedById` text,
+	`lastModified` text DEFAULT (CURRENT_TIMESTAMP) NOT NULL,
 	FOREIGN KEY (`createdById`) REFERENCES `users`(`id`) ON UPDATE no action ON DELETE no action,
 	FOREIGN KEY (`modifiedById`) REFERENCES `users`(`id`) ON UPDATE no action ON DELETE no action
 );

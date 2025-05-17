@@ -1,6 +1,19 @@
 {
   "tasks": [
     {
+      "command": "pnpm run db:seed",
+      "icon": {
+        "color": "terminal.ansiGreen",
+        "id": "database"
+      },
+      "label": "Seed DB",
+      "options": {
+        "cwd": "${workspaceFolder}/apps/api"
+      },
+      "problemMatcher": [],
+      "type": "shell"
+    },
+    {
       "command": "pnpm exec turbo run dev --filter api",
       "detail": "Starts Cloudflare Worker in local development mode.",
       "icon": {

@@ -12,9 +12,11 @@ export const locationTable = sqliteTable("locations", {
     .notNull()
     .default(sql`(CURRENT_TIMESTAMP)`),
   hasToilet: integer({ mode: "boolean" }).notNull(),
-  createdById: integer().references(() => userTable.id),
-  modifiedById: integer().references(() => userTable.id),
-  lastModified: text().notNull(),
+  createdById: text().references(() => userTable.id),
+  modifiedById: text().references(() => userTable.id),
+  lastModified: text()
+    .notNull()
+    .default(sql`(CURRENT_TIMESTAMP)`),
 });
 
 export const locationRelations = relations(locationTable, ({ one }) => ({

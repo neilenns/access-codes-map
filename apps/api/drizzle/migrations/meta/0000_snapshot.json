@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "8fff1c7e-e1ae-4952-8469-ecbc75365ebe",
+  "id": "220b07ac-d871-4fa5-a2cd-0e8002179689",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "locations": {
@@ -59,14 +59,14 @@
         },
         "createdById": {
           "name": "createdById",
-          "type": "integer",
+          "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
         },
         "modifiedById": {
           "name": "modifiedById",
-          "type": "integer",
+          "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
@@ -76,7 +76,8 @@
           "type": "text",
           "primaryKey": false,
           "notNull": true,
-          "autoincrement": false
+          "autoincrement": false,
+          "default": "(CURRENT_TIMESTAMP)"
         }
       },
       "indexes": {},
