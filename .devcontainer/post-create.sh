@@ -38,4 +38,4 @@ pre-commit install --install-hooks > /dev/null
 
 ### Seed the database
 echo "🌱 Seeding the database..."
-cd ./apps/api && pnpm run db:seed > /dev/null
+cd ./apps/web && pnpm run db:seed > /dev/null
