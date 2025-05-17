@@ -15,8 +15,11 @@ export default ENV.LOCAL_DB_PATH
       out: "./drizzle/migrations",
       driver: "d1-http",
       dbCredentials: {
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         accountId: ENV.CLOUDFLARE_ACCOUNT_ID!,
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         databaseId: ENV.CLOUDFLARE_DATABASE_ID!,
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         token: ENV.CLOUDFLARE_D1_TOKEN!,
       },
     });
