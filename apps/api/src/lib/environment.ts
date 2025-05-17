@@ -5,12 +5,22 @@ config({
   ignore: ["MISSING_ENV_FILE"],
 });
 
-const environmentSchema = z.object({
-  CLOUDFLARE_ACCOUNT_ID: z.string().optional(),
-  CLOUDFLARE_DATABASE_ID: z.string().optional(),
-  CLOUDFLARE_D1_TOKEN: z.string().optional(),
-  LOCAL_DB_PATH: z.string().optional(),
-});
+const environmentSchema = z.discriminatedUnion('LOCAL_DB_PATH', [
+  // Local database configuration
+  z.object({
+    LOCAL_DB_PATH: z.string(),
+    CLOUDFLARE_ACCOUNT_ID: z.string().optional(),
+    CLOUDFLARE_DATABASE_ID: z.string().optional(),
+    CLOUDFLARE_D1_TOKEN: z.string().optional(),
+  }),
+  // Cloudflare D1 configuration
+  z.object({
+    LOCAL_DB_PATH: z.undefined().optional(),
+    CLOUDFLARE_ACCOUNT_ID: z.string(),
+    CLOUDFLARE_DATABASE_ID: z.string(),
+    CLOUDFLARE_D1_TOKEN: z.string(),
+  }),
+]);
 
 const result = environmentSchema.safeParse(process.env);
 if (!result.success) {
