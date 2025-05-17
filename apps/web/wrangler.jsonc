@@ -1,12 +1,23 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "api",
-  "main": "src/index.ts",
+  "name": "access-codes-map",
+  "main": ".open-next/worker.js",
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS",
+  },
   "compatibility_date": "2025-05-14",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
   "dev": {
     "ip": "0.0.0.0", // Required to enable accessing the dev server from outside the devcontainer.
-    "port": 8787, // Port to run the dev server on.
+    "port": 3000, // Port to run the dev server on.
   },
+  "services": [
+    {
+      "binding": "WORKER_SELF_REFERENCE",
+      "service": "access-codes-map",
+    },
+  ],
   "env": {
     "dev": {
       "d1_databases": [

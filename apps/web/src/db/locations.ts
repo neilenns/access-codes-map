@@ -6,7 +6,7 @@ import {
   sqliteTable,
   text,
 } from "drizzle-orm/sqlite-core";
-import { users } from "./users.ts";
+import { users } from "./users.js";
 
 export const locations = sqliteTable(
   "locations",

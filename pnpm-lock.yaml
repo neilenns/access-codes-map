@@ -84,9 +84,18 @@ importers:
 
   apps/web:
     dependencies:
+      '@dotenvx/dotenvx':
+        specifier: ^1.44.0
+        version: 1.44.0
       '@opennextjs/cloudflare':
         specifier: ^1.0.3
         version: 1.0.3(wrangler@4.15.2)
+      better-sqlite3:
+        specifier: ^11.10.0
+        version: 11.10.0
+      drizzle-orm:
+        specifier: ^0.43.1
+        version: 0.43.1(better-sqlite3@11.10.0)
       next:
         specifier: 15.3.2
         version: 15.3.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -96,6 +105,9 @@ importers:
       react-dom:
         specifier: ^19.0.0
         version: 19.1.0(react@19.1.0)
+      zod:
+        specifier: ^3.24.4
+        version: 3.24.4
     devDependencies:
       '@eslint/eslintrc':
         specifier: ^3
@@ -118,6 +130,12 @@ importers:
       '@workspace/eslint-config':
         specifier: workspace:*
         version: link:../../packages/eslint-config
+      cross-env:
+        specifier: ^7.0.3
+        version: 7.0.3
+      drizzle-kit:
+        specifier: ^0.31.1
+        version: 0.31.1
       eslint:
         specifier: ^9
         version: 9.26.0(jiti@2.4.2)
@@ -133,12 +151,18 @@ importers:
       globals:
         specifier: ^16.1.0
         version: 16.1.0
+      rimraf:
+        specifier: ^6.0.1
+        version: 6.0.1
       tailwindcss:
         specifier: ^4
         version: 4.1.7
       typescript:
         specifier: ^5
         version: 5.8.3
+      wrangler:
+        specifier: ^4.15.2
+        version: 4.15.2
 
   packages/eslint-config:
     devDependencies:

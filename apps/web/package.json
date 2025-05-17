@@ -5,15 +5,26 @@
   "type": "module",
   "scripts": {
     "build": "next build",
+    "cf-typegen": "wrangler types --env=dev --env-interface CloudflareEnv ./src/types/worker-configuration.d.ts",
+    "db:generate": "cross-env LOCAL_DB_PATH=$(find .wrangler/state/v3/d1/miniflare-D1DatabaseObject -type f -name '*.sqlite' -print -quit) drizzle-kit generate",
+    "db:migrate": "wrangler d1 migrations apply ACCESS_CODES_DB --local --env=dev",
+    "db:seed": "rimraf .wrangler/state/v3/d1/miniflare-D1DatabaseObject && cross-env CI=true pnpm run db:migrate && wrangler d1 execute ACCESS_CODES_DB --file=./src/db/seed.sql --env dev --local --yes",
+    "db:studio": "cross-env LOCAL_DB_PATH=$(find .wrangler/state/v3/d1/miniflare-D1DatabaseObject -type f -name '*.sqlite' -print -quit) drizzle-kit studio --host=0.0.0.0 --port=8788",
     "dev": "next dev",
     "lint": "next lint",
-    "start": "next start"
+    "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview --env=dev",
+    "start": "next start",
+    "upload": "opennextjs-cloudflare build && opennextjs-cloudflare upload"
   },
   "dependencies": {
+    "@dotenvx/dotenvx": "^1.44.0",
     "@opennextjs/cloudflare": "^1.0.3",
+    "better-sqlite3": "^11.10.0",
+    "drizzle-orm": "^0.43.1",
     "next": "15.3.2",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "zod": "^3.24.4"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
@@ -23,12 +34,16 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@workspace/eslint-config": "workspace:*",
+    "cross-env": "^7.0.3",
+    "drizzle-kit": "^0.31.1",
     "eslint": "^9",
     "eslint-config-next": "15.3.2",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^5.2.0",
     "globals": "^16.1.0",
+    "rimraf": "^6.0.1",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "wrangler": "^4.15.2"
   }
 }

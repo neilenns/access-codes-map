@@ -16,6 +16,7 @@ export default [
       "src/components/ui/**", // shadcn components, I'm not fixing their linting issues
       "src/hooks/**", // shadcn hooks, I'm not fixing their linting issues
       "prettier.config.js",
+      "src/types/*.d.ts",
     ],
   },
   {
