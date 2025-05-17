@@ -15,7 +15,6 @@
   },
   "dependencies": {
     "@dotenvx/dotenvx": "^1.44.0",
-    "add": "^2.0.6",
     "better-sqlite3": "^11.10.0",
     "drizzle-orm": "^0.43.1",
     "hono": "^4.7.9",
