@@ -1,7 +1,8 @@
+DELETE FROM locations;
 DELETE FROM users;
+
 INSERT INTO users (id, name) VALUES ('u1', 'Neil'), ('u2', 'Alice');
 
-DELETE FROM locations;
 INSERT INTO locations (
   title, latitude, longitude, note, createdById, modifiedById, hasToilet
 ) VALUES
