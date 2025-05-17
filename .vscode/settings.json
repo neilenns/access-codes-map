@@ -2,6 +2,10 @@
   "cSpell.enabledSchemes": {
     "json": false
   },
+  "cSpell.words": [
+    "dotenvx",
+    "miniflare"
+  ],
   "debug.internalConsoleOptions": "neverOpen",
   "eslint.useFlatConfig": true,
   "eslint.workingDirectories": [

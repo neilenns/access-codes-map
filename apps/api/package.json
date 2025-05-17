@@ -3,18 +3,29 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "cf-typegen": "wrangler types --env-interface CloudflareBindings",
+    "cf-typegen": "wrangler types --env-interface CloudflareBindings ./src/types/worker-configuration.d.ts",
     "ci": "wrangler deploy --dry-run",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "wrangler d1 migrations apply ACCESS_CODES_DB --local --env=dev",
+    "db:studio": "cross-env LOCAL_DB_PATH=$(find .wrangler/state/v3/d1/miniflare-D1DatabaseObject -type f -name '*.sqlite' -print -quit) drizzle-kit studio --host=0.0.0.0",
     "deploy": "wrangler deploy --minify",
     "dev": "wrangler dev",
     "lint": "eslint ."
   },
   "dependencies": {
-    "hono": "^4.7.9"
+    "@dotenvx/dotenvx": "^1.44.0",
+    "add": "^2.0.6",
+    "better-sqlite3": "^11.10.0",
+    "drizzle-orm": "^0.43.1",
+    "hono": "^4.7.9",
+    "zod": "^3.24.4"
   },
   "devDependencies": {
+    "@types/node": "^22.15.18",
     "@workspace/eslint-config": "workspace:*",
     "@workspace/typescript-config": "workspace:*",
-    "wrangler": "^4.4.0"
+    "cross-env": "^7.0.3",
+    "drizzle-kit": "^0.31.1",
+    "wrangler": "^4.15.2"
   }
 }
