@@ -4,7 +4,7 @@ export interface MapProperties {
   locations: LocationsWithUsers;
 }
 
-export default function Map({ locations }: MapProperties) {
+export default function LocationsMap({ locations }: MapProperties) {
   return (
     <div>
       <ul>
