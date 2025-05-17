@@ -2,7 +2,7 @@
   "configurations": [
     {
       "command": "pnpm run db:studio",
-      "cwd": "${workspaceFolder}/apps/api",
+      "cwd": "${workspaceFolder}/apps/web",
       "name": "Drizzle studio",
       "request": "launch",
       "serverReadyAction": {

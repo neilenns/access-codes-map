@@ -12,14 +12,14 @@
     "ip": "0.0.0.0", // Required to enable accessing the dev server from outside the devcontainer.
     "port": 3000, // Port to run the dev server on.
   },
-  "services": [
-    {
-      "binding": "WORKER_SELF_REFERENCE",
-      "service": "access-codes-map",
-    },
-  ],
   "env": {
     "dev": {
+      "services": [
+        {
+          "binding": "WORKER_SELF_REFERENCE",
+          "service": "access-codes-map",
+        },
+      ],
       "d1_databases": [
         {
           "binding": "ACCESS_CODES_DB",
@@ -31,6 +31,12 @@
       ],
     },
     "prod": {
+      "services": [
+        {
+          "binding": "WORKER_SELF_REFERENCE",
+          "service": "access-codes-map",
+        },
+      ],
       "d1_databases": [
         {
           "binding": "ACCESS_CODES_DB",

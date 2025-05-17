@@ -1,2 +1,2 @@
-export * from "./locations.js";
-export * from "./users.js";
+export * from "./locations";
+export * from "./users";
