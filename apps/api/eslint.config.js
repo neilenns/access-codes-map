@@ -1,3 +1,8 @@
 import { config } from "@workspace/eslint-config/base";
 
-export default [...config, { exclude: ["src/types/*.d.ts"] }];
+export default [
+  ...config,
+  {
+    ignorePatterns: ["src/types/*.d.ts"], // Exclude declaration files from linting
+  },
+];
