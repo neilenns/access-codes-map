@@ -1,11 +1,16 @@
 import { getDatabaseAsync } from ".";
 
 export const getAllLocations = async () => {
-  const database = await getDatabaseAsync();
+  try {
+    const database = await getDatabaseAsync();
 
-  return await database.query.locations.findMany({
-    with: { createdBy: true, modifiedBy: true },
-  });
+    return await database.query.locations.findMany({
+      with: { createdBy: true, modifiedBy: true },
+    });
+  } catch (error) {
+    console.error("Error fetching locations:", error);
+    throw error; // Rethrow the error to handle it in the calling functions
+  }
 };
 
 export type LocationsWithUsers = Awaited<ReturnType<typeof getAllLocations>>;
