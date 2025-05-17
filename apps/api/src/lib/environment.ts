@@ -5,7 +5,7 @@ config({
   ignore: ["MISSING_ENV_FILE"],
 });
 
-const environmentSchema = z.discriminatedUnion('LOCAL_DB_PATH', [
+const environmentSchema = z.union([
   // Local database configuration
   z.object({
     LOCAL_DB_PATH: z.string(),
