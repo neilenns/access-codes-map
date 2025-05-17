@@ -1,16 +1,16 @@
 import { defineConfig } from "drizzle-kit";
-import { ENV } from "./src/lib/environment.ts";
+import { ENV } from "./src/lib/environment";
 
 export default ENV.LOCAL_DB_PATH
   ? defineConfig({
-      schema: "./src/db/schema.ts",
+      schema: "./src/db/schema/schema.ts",
       dialect: "sqlite",
       dbCredentials: {
         url: `./${ENV.LOCAL_DB_PATH}`,
       },
     })
   : defineConfig({
-      schema: "./src/db/schema.ts",
+      schema: "./src/db/schema/schema.ts",
       dialect: "sqlite",
       out: "./drizzle/migrations",
       driver: "d1-http",

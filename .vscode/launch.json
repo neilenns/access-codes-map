@@ -2,7 +2,7 @@
   "configurations": [
     {
       "command": "pnpm run db:studio",
-      "cwd": "${workspaceFolder}/apps/api",
+      "cwd": "${workspaceFolder}/apps/web",
       "name": "Drizzle studio",
       "request": "launch",
       "serverReadyAction": {
@@ -10,19 +10,6 @@
         "killOnServerStop": true,
         "pattern": "running on",
         "uriFormat": "https://local.drizzle.studio?port=8788&host=localhost"
-      },
-      "type": "node-terminal"
-    },
-    {
-      "command": "pnpm exec turbo run dev",
-      "name": "Debug (All)",
-      "request": "launch",
-      "serverReadyAction": {
-        "action": "debugWithEdge",
-        "killOnServerStop": true,
-        "pattern": "- Local:.+(https?://.+)",
-        "uriFormat": "%s/admin/scenarios",
-        "webRoot": "${workspaceFolder}/apps/web/src"
       },
       "type": "node-terminal"
     },
@@ -39,16 +26,6 @@
         "webRoot": "${workspaceFolder}/apps/web/src"
       },
       "type": "node-terminal"
-    },
-    {
-      "address": "localhost",
-      "localRoot": "${workspaceFolder}/apps/api",
-      "name": "Debug (api)",
-      "port": 9229,
-      "preLaunchTask": "Wrangler Dev",
-      "request": "attach",
-      "skipFiles": ["<node_internals>/**"],
-      "type": "node"
     }
   ],
   "version": "0.2.0"
