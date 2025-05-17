@@ -10,11 +10,25 @@ app
     return c.text("Hello Hono!");
   })
   .get("/seed", async (c) => {
-    const database = createDatabase(c.env);
+    try {
+      const database = createDatabase(c.env);
 
-    const result = await database.select().from(userTable).all();
-
-    c.json(result);
+      const user = await database
+        .insert(userTable)
+        .values({
+          name: "John Doe",
+          id: "123456",
+        })
+        .returning()
+        .get();
+      return c.json(user);
+    } catch (error) {
+      console.error("Error seeding database:", error);
+      return c.text("Error seeding database", 500);
+    }
   });
 
-export default app;
+// Add worker event handling
+export default {
+  fetch: app.fetch,
+};

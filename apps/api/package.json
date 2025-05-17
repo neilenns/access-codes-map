@@ -4,12 +4,12 @@
   "type": "module",
   "scripts": {
     "cf-typegen": "wrangler types --env-interface CloudflareBindings ./src/types/worker-configuration.d.ts",
-    "ci": "wrangler deploy --dry-run",
+    "ci": "wrangler deploy --dry-run --env=dev",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "wrangler d1 migrations apply ACCESS_CODES_DB --local --env=dev",
     "db:studio": "cross-env LOCAL_DB_PATH=$(find .wrangler/state/v3/d1/miniflare-D1DatabaseObject -type f -name '*.sqlite' -print -quit) drizzle-kit studio --host=0.0.0.0",
     "deploy": "wrangler deploy --minify",
-    "dev": "wrangler dev",
+    "dev": "wrangler dev --env=dev",
     "lint": "eslint ."
   },
   "dependencies": {
