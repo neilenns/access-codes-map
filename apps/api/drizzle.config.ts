@@ -12,25 +12,13 @@ export default ENV.LOCAL_DB_PATH
       },
     })
   : defineConfig({
-      // Verify Cloudflare credentials are present
-      async onDatabaseBootstrap() {
-        if (
-          !ENV.CLOUDFLARE_ACCOUNT_ID ||
-          !ENV.CLOUDFLARE_DATABASE_ID ||
-          !ENV.CLOUDFLARE_D1_TOKEN
-        ) {
-          throw new Error(
-            "Missing required Cloudflare credentials. Set CLOUDFLARE_ACCOUNT_ID, CLOUDFLARE_DATABASE_ID, and CLOUDFLARE_D1_TOKEN."
-          );
-        }
-      },
       schema: "./src/db/schema.ts",
       dialect: "sqlite",
       out: "./drizzle/migrations",
       driver: "d1-http",
       dbCredentials: {
-        accountId: ENV.CLOUDFLARE_ACCOUNT_ID,
-        databaseId: ENV.CLOUDFLARE_DATABASE_ID,
-        token: ENV.CLOUDFLARE_D1_TOKEN,
+        accountId: ENV.CLOUDFLARE_ACCOUNT_ID!,
+        databaseId: ENV.CLOUDFLARE_DATABASE_ID!,
+        token: ENV.CLOUDFLARE_D1_TOKEN!,
       },
     });

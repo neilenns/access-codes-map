@@ -2,6 +2,7 @@
   "tasks": [
     {
       "command": "pnpm run db:seed",
+      "detail": "Deletes the database and recreates it with seed data.",
       "icon": {
         "color": "terminal.ansiGreen",
         "id": "database"
