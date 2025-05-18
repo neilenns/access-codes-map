@@ -3,7 +3,7 @@ reviews:
   collapse_walkthrough: true
   sequence_diagrams: false
   auto_review:
-    enabled: false
+    enabled: true
     drafts: false
   tools:
     # Disable eslint and markdown lint since they are handled separately
@@ -20,8 +20,7 @@ reviews:
   path_instructions:
     - path: "**/*.tsx"
       instructions: |
-        Review all TypeScript files and ensure that:
-          - Components have appropriate accessibility attributes on them
+        Review all TypeScript files
 
     - path: "**/*.md"
       instructions: |
