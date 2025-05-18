@@ -1,27 +1,21 @@
-import { getAllLocations } from "@/db/locations";
-import ClientSection from "./client-section";
+import { Button } from "@/components/ui/button";
+import { DoorOpen } from "lucide-react";
+import Link from "next/link";
 
-export default async function Home() {
-  try {
-    const locations = await getAllLocations();
-
-    return (
-      <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-        <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-          <ClientSection locations={locations} />
-        </main>
+export default function Home() {
+  return (
+    <main className="flex min-h-screen items-center justify-center bg-background px-4">
+      <div className="text-center max-w-xl space-y-6">
+        <div className="flex justify-center">
+          <div className="flex items-center gap-2">
+            <DoorOpen width="80" height="80" />
+            <span className="text-6xl font-semibold">Access codes</span>
+          </div>
+        </div>
+        <Button size="lg" asChild>
+          <Link href="/map">Launch the map</Link>
+        </Button>
       </div>
-    );
-  } catch (error) {
-    console.error("Error fetching locations:", error);
-    return (
-      <div
-        role="alert"
-        aria-live="assertive"
-        className="flex items-center justify-center min-h-screen"
-      >
-        <p>Error loading locations. Please try again later.</p>
-      </div>
-    );
-  }
+    </main>
+  );
 }

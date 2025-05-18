@@ -10,7 +10,6 @@
   "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
   "dev": {
     "ip": "0.0.0.0", // Required to enable accessing the dev server from outside the devcontainer.
-    "port": 3000, // Port to run the dev server on.
   },
   "env": {
     "dev": {
