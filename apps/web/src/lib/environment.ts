@@ -1,21 +1,20 @@
-import { config } from "@dotenvx/dotenvx";
 import z from "zod";
 import { auth0url } from "./auth0-url";
-
-config({
-  ignore: ["MISSING_ENV_FILE"],
-});
 
 // Shared fields for both configurations
 const sharedFields = {
   NODE_ENV: z
     .enum(["development", "production", "test"])
     .default("development"),
+  APP_BASE_URL: z.string().url(),
   AUTH0_AUDIENCE: auth0url.optional(),
   AUTH0_CLIENT_SECRET: z.string().optional(),
   AUTH0_CLIENT_ID: z.string().optional(),
   AUTH0_DOMAIN: auth0url.optional(),
   AUTH0_SECRET: z.string().optional(),
+  CLOUDFLARE_ACCOUNT_ID: z.string().optional(),
+  CLOUDFLARE_DATABASE_ID: z.string().optional(),
+  CLOUDFLARE_D1_TOKEN: z.string().optional(),
   DISABLE_AUTH: z
     .preprocess((value) => value === "true" || value === "1", z.boolean())
     .default(false),
@@ -24,18 +23,12 @@ const sharedFields = {
 // Local DB config
 const localDatabaseSchema = z.object({
   LOCAL_DB_PATH: z.string(),
-  CLOUDFLARE_ACCOUNT_ID: z.string().optional(),
-  CLOUDFLARE_DATABASE_ID: z.string().optional(),
-  CLOUDFLARE_D1_TOKEN: z.string().optional(),
   ...sharedFields,
 });
 
 // Cloudflare D1 config
 const cloudflareSchema = z.object({
   LOCAL_DB_PATH: z.undefined().optional(),
-  CLOUDFLARE_ACCOUNT_ID: z.string(),
-  CLOUDFLARE_DATABASE_ID: z.string(),
-  CLOUDFLARE_D1_TOKEN: z.string(),
   ...sharedFields,
 });
 
