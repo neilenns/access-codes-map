@@ -5,7 +5,10 @@
   "cSpell.words": [
     "dotenvx",
     "miniflare",
-    "opennextjs"
+    "nvmrc",
+    "opennextjs",
+    "pnpx",
+    "Turborepo"
   ],
   "debug.internalConsoleOptions": "neverOpen",
   "eslint.useFlatConfig": true,

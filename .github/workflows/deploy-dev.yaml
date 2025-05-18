@@ -1,0 +1,27 @@
+name: Deploy - dev
+
+on:
+  workflow_dispatch:
+
+jobs:
+  cloudflare:
+    name: Deploy to Cloudflare
+    runs-on: ubuntu-latest
+    environment:
+      name: dev
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy to Cloudflare
+        uses: ./.github/actions/cloudflare-deploy
+        with:
+          cloudflare_account_id: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          cloudflare_api_token: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          cloudflare_d1_token: ${{ secrets.CLOUDFLARE_D1_TOKEN }}
+          deploy_env: ${{ vars.DEPLOY_ENV }}
+          turbo_token: ${{ secrets.TURBO_TOKEN }}
+          turbo_team: ${{ vars.TURBO_TEAM }}
