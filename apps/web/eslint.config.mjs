@@ -15,8 +15,10 @@ export default [
       ".next/**",
       "src/components/ui/**", // shadcn components, I'm not fixing their linting issues
       "src/hooks/**", // shadcn hooks, I'm not fixing their linting issues
+      "src/lib/utils.ts", // shadcn utils, I'm not fixing their linting issues
       "prettier.config.js",
       "src/types/*.d.ts",
+      "eslint.config.mjs",
     ],
   },
   {
