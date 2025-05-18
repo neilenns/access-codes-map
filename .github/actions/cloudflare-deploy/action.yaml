@@ -71,4 +71,4 @@ runs:
       env:
         CLOUDFLARE_API_TOKEN: ${{ inputs.cloudflare_api_token }}
         CLOUDFLARE_ACCOUNT_ID: ${{ inputs.cloudflare_account_id }}
-        CLOUDFLARE_ENV: ${{ inputs.deploy_env }}
+        DEPLOY_ENV: ${{ inputs.deploy_env }}
