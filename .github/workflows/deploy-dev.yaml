@@ -22,6 +22,7 @@ jobs:
           cloudflare_account_id: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           cloudflare_api_token: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           cloudflare_d1_token: ${{ secrets.CLOUDFLARE_D1_TOKEN }}
+          cloudflare_database_id: ${{ vars.CLOUDFLARE_DATABASE_ID }}
           deploy_env: ${{ vars.DEPLOY_ENV }}
           turbo_token: ${{ secrets.TURBO_TOKEN }}
           turbo_team: ${{ vars.TURBO_TEAM }}

@@ -11,6 +11,9 @@ inputs:
   cloudflare_d1_token:
     required: true
     description: "Cloudflare token for interacting with D1 databases"
+  cloudflare_database_id:
+    required: true
+    description: "Cloudflare database ID for the access codes database"
   deploy_env:
     required: true
     description: "The environment to deploy to (e.g., dev, prod)"
@@ -20,14 +23,6 @@ inputs:
   turbo_team:
     required: true
     description: "Team name for Turborepo remote cache"
-
-env:
-  CLOUDFLARE_API_TOKEN: ${{ inputs.cloudflare_api_token }}
-  CLOUDFLARE_ACCOUNT_ID: ${{ inputs.cloudflare_account_id }}
-  CLOUDFLARE_D1_TOKEN: ${{ inputs.cloudflare_d1_token }}
-  CLOUDFLARE_ENV: ${{ inputs.deploy_env }}
-  TURBO_TOKEN: ${{ inputs.turbo_token }}
-  TURBO_TEAM: ${{ inputs.turbo_team }}
 
 runs:
   using: "composite"
@@ -48,29 +43,36 @@ runs:
     - name: Prep for build
       run: pnpx turbo prune --scope=web
       shell: bash
+      env:
+        TURBO_TOKEN: ${{ inputs.turbo_token }}
+        TURBO_TEAM: ${{ inputs.turbo_team }}
 
     - name: Install dependencies
       working-directory: ./out
       run: pnpm install
       shell: bash
 
-    - name: Deploy secrets to Cloudflare and migrate database
+    - name: Deploy to Cloudflare
+      working-directory: ./out
+      run: pnpx turbo run cf:deploy
+      shell: bash
+      env:
+        CLOUDFLARE_API_TOKEN: ${{ inputs.cloudflare_api_token }}
+        CLOUDFLARE_ACCOUNT_ID: ${{ inputs.cloudflare_account_id }}
+        CLOUDFLARE_D1_TOKEN: ${{ inputs.cloudflare_d1_token }}
+        CLOUDFLARE_DATABASE_ID: ${{ inputs.cloudflare_database_id }}
+        DEPLOY_ENV: ${{ inputs.deploy_env }}
+        TURBO_TOKEN: ${{ inputs.turbo_token }}
+        TURBO_TEAM: ${{ inputs.turbo_team }}
+
+    - name: Migrate database
       uses: cloudflare/wrangler-action@v3
-      working-directory: ./out/apps/web
+      env:
+        CLOUDFLARE_API_TOKEN: ${{ inputs.cloudflare_api_token }}
+        CLOUDFLARE_ACCOUNT_ID: ${{ inputs.cloudflare_account_id }}
       with:
         apiToken: ${{ inputs.cloudflare_api_token }}
         environment: ${{ inputs.deploy_env }}
         workingDirectory: ./out/apps/web
-        secrets: |
-          CLOUDFLARE_D1_TOKEN
-          CLOUDFLARE_ACCOUNT_ID
-        env: |
-          CLOUDFLARE_D1_TOKEN: ${{ inputs.cloudflare_d1_token }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ inputs.cloudflare_account_id }}
         command: |
-          d1 migrations apply ACCESS_CODES_DB ==env=${{ inputs.deploy_env}} --remote
-
-    - name: Deploy to Cloudflare
-      working-directory: ./out
-      run: pnpx turbo run cf-deploy
-      shell: bash
+          d1 migrations apply ACCESS_CODES_DB --env=${{ inputs.deploy_env}} --remote
