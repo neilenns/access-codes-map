@@ -11,6 +11,9 @@ inputs:
   cloudflare_d1_token:
     required: true
     description: "Cloudflare token for interacting with D1 databases"
+  cloudflare_database_id
+    required: true
+    description: "Cloudflare database ID for the access codes database"
   deploy_env:
     required: true
     description: "The environment to deploy to (e.g., dev, prod)"
@@ -56,7 +59,11 @@ runs:
       env:
         CLOUDFLARE_API_TOKEN: ${{ inputs.cloudflare_api_token }}
         CLOUDFLARE_ACCOUNT_ID: ${{ inputs.cloudflare_account_id }}
+        CLOUDFLARE_D1_TOKEN: ${{ inputs.cloudflare_d1_token }}
+        CLOUDFLARE_DATABASE_ID: ${{ inputs.cloudflare_database_id }}
         DEPLOY_ENV: ${{ inputs.deploy_env }}
+        TURBO_TOKEN: ${{ inputs.turbo_token }}
+        TURBO_TEAM: ${{ inputs.turbo_team }}
 
     - name: Deploy secrets to Cloudflare and migrate database
       uses: cloudflare/wrangler-action@v3
