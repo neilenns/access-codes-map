@@ -49,11 +49,20 @@ runs:
       run: pnpm install
       shell: bash
 
+    - name: Deploy to Cloudflare
+      working-directory: ./out
+      run: pnpx turbo run cf-deploy
+      shell: bash
+      env:
+        CLOUDFLARE_API_TOKEN: ${{ inputs.cloudflare_api_token }}
+        CLOUDFLARE_ACCOUNT_ID: ${{ inputs.cloudflare_account_id }}
+        DEPLOY_ENV: ${{ inputs.deploy_env }}
+
     - name: Deploy secrets to Cloudflare and migrate database
       uses: cloudflare/wrangler-action@v3
       env:
         CLOUDFLARE_D1_TOKEN: ${{ inputs.cloudflare_d1_token }}
-        CLOUDFLARE_ACCOUNT_ID: testtesttest
+        CLOUDFLARE_ACCOUNT_ID: ${{ inputs.cloudflare_account_id }}
       with:
         apiToken: ${{ inputs.cloudflare_api_token }}
         environment: ${{ inputs.deploy_env }}
@@ -63,12 +72,3 @@ runs:
           CLOUDFLARE_ACCOUNT_ID
         command: |
           d1 migrations apply ACCESS_CODES_DB ==env=${{ inputs.deploy_env}} --remote
-
-    - name: Deploy to Cloudflare
-      working-directory: ./out
-      run: pnpx turbo run cf-deploy
-      shell: bash
-      env:
-        CLOUDFLARE_API_TOKEN: ${{ inputs.cloudflare_api_token }}
-        CLOUDFLARE_ACCOUNT_ID: ${{ inputs.cloudflare_account_id }}
-        DEPLOY_ENV: ${{ inputs.deploy_env }}
