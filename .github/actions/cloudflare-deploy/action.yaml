@@ -33,13 +33,17 @@ runs:
     - uses: pnpm/action-setup@v4
       with:
         version: 10.10.0
-        run_install: true
+        run_install: false
 
     - name: Use Node.js
       uses: actions/setup-node@v4
       with:
         node-version-file: ".nvmrc"
         cache: "pnpm"
+
+    - name: Install dependencies
+      shell: bash
+      run: pnpm install --frozen-lockfile
 
     - name: Deploy secrets to Cloudflare
       working-directory: ./apps/web
