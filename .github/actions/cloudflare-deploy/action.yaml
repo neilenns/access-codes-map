@@ -11,7 +11,7 @@ inputs:
   cloudflare_d1_token:
     required: true
     description: "Cloudflare token for interacting with D1 databases"
-  cloudflare_database_id
+  cloudflare_database_id:
     required: true
     description: "Cloudflare database ID for the access codes database"
   deploy_env:
