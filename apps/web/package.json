@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "next build",
-    "cf:deploy": "opennextjs-cloudflare build && opennextjs-cloudflare upload -- --env=$DEPLOY_ENV",
+    "cf:deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy -- --env=$DEPLOY_ENV",
     "cf:preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview -- --env=$DEPLOY_ENV",
     "cf:typegen": "wrangler types --env=$DEPLOY_ENV --env-interface CloudflareEnv ./src/types/worker-configuration.d.ts",
     "db:generate": "cross-env LOCAL_DB_PATH=$(find .wrangler/state/v3/d1/miniflare-D1DatabaseObject -type f -name '*.sqlite' -print -quit) drizzle-kit generate",

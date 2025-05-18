@@ -33,6 +33,7 @@ runs:
     - uses: pnpm/action-setup@v4
       with:
         version: 10.10.0
+        run_install: false
 
     - name: Use Node.js
       uses: actions/setup-node@v4
@@ -40,20 +41,33 @@ runs:
         node-version-file: ".nvmrc"
         cache: "pnpm"
 
-    - name: Prep for build
-      run: pnpx turbo prune --scope=web
-      shell: bash
-      env:
-        TURBO_TOKEN: ${{ inputs.turbo_token }}
-        TURBO_TEAM: ${{ inputs.turbo_team }}
-
     - name: Install dependencies
-      working-directory: ./out
-      run: pnpm install
       shell: bash
+      run: pnpm install --frozen-lockfile
+
+    - name: Deploy secrets to Cloudflare
+      working-directory: ./apps/web
+      shell: bash
+      run: |
+        echo "${{ inputs.cloudflare_account_id }}" | pnpx wrangler secret put CLOUDFLARE_ACCOUNT_ID --env ${{ inputs.deploy_env }}
+        echo "${{ inputs.cloudflare_d1_token }}" | pnpx wrangler secret put CLOUDFLARE_D1_TOKEN --env ${{ inputs.deploy_env }}
+      env:
+        CLOUDFLARE_ACCOUNT_ID: ${{ inputs.cloudflare_account_id }}
+        CLOUDFLARE_API_TOKEN: ${{ inputs.cloudflare_api_token }}
+
+    - name: Migrate database
+      uses: cloudflare/wrangler-action@v3
+      env:
+        CLOUDFLARE_API_TOKEN: ${{ inputs.cloudflare_api_token }}
+        CLOUDFLARE_ACCOUNT_ID: ${{ inputs.cloudflare_account_id }}
+      with:
+        apiToken: ${{ inputs.cloudflare_api_token }}
+        environment: ${{ inputs.deploy_env }}
+        workingDirectory: ./apps/web
+        command: |
+          d1 migrations apply ACCESS_CODES_DB --env=${{ inputs.deploy_env}} --remote
 
     - name: Deploy to Cloudflare
-      working-directory: ./out
       run: pnpx turbo run cf:deploy
       shell: bash
       env:
@@ -64,15 +78,3 @@ runs:
         DEPLOY_ENV: ${{ inputs.deploy_env }}
         TURBO_TOKEN: ${{ inputs.turbo_token }}
         TURBO_TEAM: ${{ inputs.turbo_team }}
-
-    - name: Migrate database
-      uses: cloudflare/wrangler-action@v3
-      env:
-        CLOUDFLARE_API_TOKEN: ${{ inputs.cloudflare_api_token }}
-        CLOUDFLARE_ACCOUNT_ID: ${{ inputs.cloudflare_account_id }}
-      with:
-        apiToken: ${{ inputs.cloudflare_api_token }}
-        environment: ${{ inputs.deploy_env }}
-        workingDirectory: ./out/apps/web
-        command: |
-          d1 migrations apply ACCESS_CODES_DB --env=${{ inputs.deploy_env}} --remote
