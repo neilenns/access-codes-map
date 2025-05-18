@@ -53,7 +53,7 @@ runs:
       uses: cloudflare/wrangler-action@v3
       env:
         CLOUDFLARE_D1_TOKEN: ${{ inputs.cloudflare_d1_token }}
-        CLOUDFLARE_ACCOUNT_ID: ${{ inputs.cloudflare_account_id }}
+        CLOUDFLARE_ACCOUNT_ID: testtesttest
       with:
         apiToken: ${{ inputs.cloudflare_api_token }}
         environment: ${{ inputs.deploy_env }}
