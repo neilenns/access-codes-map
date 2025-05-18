@@ -75,4 +75,4 @@ runs:
         environment: ${{ inputs.deploy_env }}
         workingDirectory: ./out/apps/web
         command: |
-          d1 migrations apply ACCESS_CODES_DB ==env=${{ inputs.deploy_env}} --remote
+          d1 migrations apply ACCESS_CODES_DB --env=${{ inputs.deploy_env}} --remote
