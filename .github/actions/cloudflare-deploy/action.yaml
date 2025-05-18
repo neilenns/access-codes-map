@@ -51,6 +51,9 @@ runs:
 
     - name: Deploy secrets to Cloudflare and migrate database
       uses: cloudflare/wrangler-action@v3
+      env: |
+        CLOUDFLARE_D1_TOKEN: ${{ inputs.cloudflare_d1_token }}
+        CLOUDFLARE_ACCOUNT_ID: ${{ inputs.cloudflare_account_id }}
       with:
         apiToken: ${{ inputs.cloudflare_api_token }}
         environment: ${{ inputs.deploy_env }}
@@ -58,9 +61,6 @@ runs:
         secrets: |
           CLOUDFLARE_D1_TOKEN
           CLOUDFLARE_ACCOUNT_ID
-        env: |
-          CLOUDFLARE_D1_TOKEN: ${{ inputs.cloudflare_d1_token }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ inputs.cloudflare_account_id }}
         command: |
           d1 migrations apply ACCESS_CODES_DB ==env=${{ inputs.deploy_env}} --remote
 
