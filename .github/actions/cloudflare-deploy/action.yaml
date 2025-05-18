@@ -51,7 +51,7 @@ runs:
 
     - name: Deploy to Cloudflare
       working-directory: ./out
-      run: pnpx turbo run cf-deploy
+      run: pnpx turbo run cf:deploy
       shell: bash
       env:
         CLOUDFLARE_API_TOKEN: ${{ inputs.cloudflare_api_token }}
