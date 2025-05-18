@@ -9,6 +9,8 @@
     "nvmrc",
     "opennextjs",
     "pnpx",
+    "serviceworker",
+    "shadcn",
     "Turborepo"
   ],
   "debug.internalConsoleOptions": "neverOpen",
