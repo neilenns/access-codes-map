@@ -17,7 +17,7 @@
       "services": [
         {
           "binding": "WORKER_SELF_REFERENCE",
-          "service": "access-codes-map",
+          "service": "access-codes-map-dev",
         },
       ],
       "d1_databases": [
@@ -37,7 +37,7 @@
       "services": [
         {
           "binding": "WORKER_SELF_REFERENCE",
-          "service": "access-codes-map",
+          "service": "access-codes-map-prod",
         },
       ],
       "d1_databases": [
