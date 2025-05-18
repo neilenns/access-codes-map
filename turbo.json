@@ -2,6 +2,9 @@
   "$schema": "./node_modules/turbo/schema.json",
   "globalPassThroughEnv": ["DEPLOY_ENV", "NODE_ENV"],
   "tasks": {
+    "cf:deploy": {
+      "env": ["DEPLOY_ENV"]
+    },
     "ci": {
       "dependsOn": ["^ci"]
     },
