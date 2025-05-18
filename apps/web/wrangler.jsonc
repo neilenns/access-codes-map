@@ -29,6 +29,9 @@
           "migrations_table": "__drizzle_migrations",
         },
       ],
+      "vars": {
+        "CLOUDFLARE_DATABASE_ID": "5a20bb2b-7f7c-454a-b8d6-f5505549de49",
+      },
     },
     "prod": {
       "services": [
@@ -46,6 +49,9 @@
           "migrations_table": "__drizzle_migrations",
         },
       ],
+      "vars": {
+        "CLOUDFLARE_DATABASE_ID": "e9eb4ee3-9028-429d-9d77-2c67e1cfb255",
+      },
     },
   },
 }
