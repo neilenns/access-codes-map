@@ -51,7 +51,6 @@ runs:
 
     - name: Deploy secrets to Cloudflare and migrate database
       uses: cloudflare/wrangler-action@v3
-      working-directory: ./out/apps/web
       with:
         apiToken: ${{ inputs.cloudflare_api_token }}
         environment: ${{ inputs.deploy_env }}
