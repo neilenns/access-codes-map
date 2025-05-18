@@ -1,4 +1,4 @@
-name: CI - Label verification
+name: CI - label verification
 
 on:
   pull_request:

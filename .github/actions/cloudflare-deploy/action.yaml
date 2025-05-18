@@ -51,7 +51,7 @@ runs:
 
     - name: Deploy secrets to Cloudflare and migrate database
       uses: cloudflare/wrangler-action@v3
-      env: |
+      env:
         CLOUDFLARE_D1_TOKEN: ${{ inputs.cloudflare_d1_token }}
         CLOUDFLARE_ACCOUNT_ID: ${{ inputs.cloudflare_account_id }}
       with:
