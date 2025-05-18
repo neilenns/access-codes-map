@@ -21,14 +21,6 @@ inputs:
     required: true
     description: "Team name for Turborepo remote cache"
 
-env:
-  CLOUDFLARE_API_TOKEN: ${{ inputs.cloudflare_api_token }}
-  CLOUDFLARE_ACCOUNT_ID: ${{ inputs.cloudflare_account_id }}
-  CLOUDFLARE_D1_TOKEN: ${{ inputs.cloudflare_d1_token }}
-  CLOUDFLARE_ENV: ${{ inputs.deploy_env }}
-  TURBO_TOKEN: ${{ inputs.turbo_token }}
-  TURBO_TEAM: ${{ inputs.turbo_team }}
-
 runs:
   using: "composite"
   steps:
@@ -48,6 +40,9 @@ runs:
     - name: Prep for build
       run: pnpx turbo prune --scope=web
       shell: bash
+      env:
+        TURBO_TOKEN: ${{ inputs.turbo_token }}
+        TURBO_TEAM: ${{ inputs.turbo_team }}
 
     - name: Install dependencies
       working-directory: ./out
@@ -74,3 +69,7 @@ runs:
       working-directory: ./out
       run: pnpx turbo run cf-deploy
       shell: bash
+      env:
+        CLOUDFLARE_API_TOKEN: ${{ inputs.cloudflare_api_token }}
+        CLOUDFLARE_ACCOUNT_ID: ${{ inputs.cloudflare_account_id }}
+        CLOUDFLARE_ENV: ${{ inputs.deploy_env }}
