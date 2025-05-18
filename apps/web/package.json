@@ -8,6 +8,7 @@
     "cf:deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy -- --env=$DEPLOY_ENV",
     "cf:preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview -- --env=$DEPLOY_ENV",
     "cf:typegen": "wrangler types --env=$DEPLOY_ENV --env-interface CloudflareEnv ./src/types/worker-configuration.d.ts",
+    "ci": "next build --experimental-build-mode compile",
     "db:generate": "cross-env LOCAL_DB_PATH=$(find .wrangler/state/v3/d1/miniflare-D1DatabaseObject -type f -name '*.sqlite' -print -quit) drizzle-kit generate",
     "db:migrate": "wrangler d1 migrations apply ACCESS_CODES_DB --local --env=$DEPLOY_ENV",
     "db:seed": "rimraf .wrangler/state/v3/d1/miniflare-D1DatabaseObject && cross-env CI=true pnpm run db:migrate && wrangler d1 execute ACCESS_CODES_DB --file=./src/db/seed.sql --env=$DEPLOY_ENV --local --yes",
