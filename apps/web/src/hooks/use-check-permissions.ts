@@ -85,7 +85,6 @@ export function useCheckPermissions(
   const [error, setError] = useState<Error | undefined>(undefined);
 
   useEffect(() => {
-    console.log("useCheckPermissions effect triggered");
     // This effect only runs if isAuthDisabled is false (due to the early return above)
     if (userIsLoading) {
       setIsLoading(true);
