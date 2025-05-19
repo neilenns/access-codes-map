@@ -12,7 +12,7 @@ export const getAuth0Client = () => {
   auth0Client ??= new Auth0Client({
     authorizationParameters: {
       scope: "openid",
-      audience: ENV.AUTH0_AUDIENCE,
+      ...(ENV.AUTH0_AUDIENCE ? { audience: ENV.AUTH0_AUDIENCE } : {}),
     },
     // Before saving the session, decode the access token to get the permissions
     // and add them to the session object.
