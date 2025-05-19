@@ -2,6 +2,15 @@ name: "Deploy to Cloudflare"
 description: "Prunes, builds, and deploys the web app to Cloudflare"
 
 inputs:
+  auth0_client_id:
+    required: true
+    description: "Auth0 client ID for deployment"
+  auth0_client_secret:
+    required: true
+    description: "Auth0 client secret for deployment"
+  auth0_secret:
+    required: true
+    description: "Auth0 secret for deployment"
   cloudflare_account_id:
     required: true
     description: "Cloudflare account ID for deployment"
@@ -60,6 +69,9 @@ runs:
       run: |
         echo "${{ inputs.cloudflare_account_id }}" | pnpx wrangler secret put CLOUDFLARE_ACCOUNT_ID --env ${{ inputs.deploy_env }}
         echo "${{ inputs.cloudflare_d1_token }}" | pnpx wrangler secret put CLOUDFLARE_D1_TOKEN --env ${{ inputs.deploy_env }}
+        echo "${{ inputs.auth0_client_id }}" | pnpx wrangler secret put AUTH0_CLIENT_ID --env ${{ inputs.deploy_env }}
+        echo "${{ inputs.auth0_client_secret }}" | pnpx wrangler secret put AUTH0_CLIENT_SECRET --env ${{ inputs.deploy_env }}
+        echo "${{ inputs.auth0_secret }}" | pnpx wrangler secret put AUTH0_SECRET --env ${{ inputs.deploy_env }}
       env:
         CLOUDFLARE_ACCOUNT_ID: ${{ inputs.cloudflare_account_id }}
         CLOUDFLARE_API_TOKEN: ${{ inputs.cloudflare_api_token }}
