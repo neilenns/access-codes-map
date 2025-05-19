@@ -1,4 +1,4 @@
-import LocationMarkers from "@/components/location-markers";
+import MarkerLayer from "@/components/marker-layer";
 import { LocationsWithUsers } from "@/db/locations";
 import * as L from "leaflet";
 import { useEffect, useState } from "react";
@@ -50,7 +50,7 @@ export default function LocationsMap({ locations }: MapProperties) {
             />
           </LayersControl.BaseLayer>
         </LayersControl>
-        <LocationMarkers locations={locations} />
+        <MarkerLayer locations={locations} />
       </MapContainer>
     </div>
   );

@@ -1,13 +1,11 @@
 import { LocationsWithUsers } from "@/db/locations";
 import LocationMarker from "./location-marker";
 
-export interface LocationMarkersProperties {
+export interface MarkerLayerProperties {
   locations: LocationsWithUsers;
 }
 
-export default function LocationMarkers({
-  locations,
-}: LocationMarkersProperties) {
+export default function MarkerLayer({ locations }: MarkerLayerProperties) {
   return (
     <>
       {locations.map((location) => (
