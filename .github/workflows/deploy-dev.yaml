@@ -3,6 +3,9 @@ name: Deploy - dev
 on:
   workflow_dispatch:
 
+env:
+  TURBO_TELEMETRY_DISABLED: 1
+
 jobs:
   cloudflare:
     name: Deploy to Cloudflare
