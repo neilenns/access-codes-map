@@ -7,6 +7,14 @@ import { getAuth0Client } from "./lib/auth0";
 const authDisabled =
   process.env.NODE_ENV === "development" &&
   ["true", "1"].includes(String(process.env.DISABLE_AUTH));
+
+function getLoginRedirectUrl(pathname: string, origin: string) {
+  return new URL(
+    `/auth/login?returnTo=${encodeURIComponent(pathname)}`,
+    origin,
+  );
+}
+
 // This method of protecting routes comes from https://github.com/auth0/nextjs-auth0/blob/main/EXAMPLES.md#middleware
 export async function middleware(request: NextRequest) {
   let authorizationResponse: NextResponse;
@@ -44,10 +52,7 @@ export async function middleware(request: NextRequest) {
   if (!session?.tokenSet.accessToken) {
     // The user isn't authenticated so redirect to the login page
     return NextResponse.redirect(
-      new URL(
-        `/auth/login?returnTo=${encodeURIComponent(request.nextUrl.pathname)}`,
-        request.nextUrl.origin,
-      ),
+      getLoginRedirectUrl(request.nextUrl.pathname, request.nextUrl.origin),
     );
   }
 
@@ -59,10 +64,7 @@ export async function middleware(request: NextRequest) {
     console.error("Error refreshing access token:", error);
     // Failed to refresh the access token so redirect to login page.
     return NextResponse.redirect(
-      new URL(
-        `/auth/login?returnTo=${encodeURIComponent(request.nextUrl.pathname)}`,
-        request.nextUrl.origin,
-      ),
+      getLoginRedirectUrl(request.nextUrl.pathname, request.nextUrl.origin),
     );
   }
 
