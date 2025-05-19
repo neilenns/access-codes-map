@@ -28,8 +28,17 @@
           "migrations_table": "__drizzle_migrations",
         },
       ],
+      "routes": [
+        {
+          "pattern": "accesscodes-dev.badcasserole.com",
+          "custom_domain": true,
+        },
+      ],
       "vars": {
         "CLOUDFLARE_DATABASE_ID": "5a20bb2b-7f7c-454a-b8d6-f5505549de49",
+        "APP_BASE_URL": "https://accesscodes-dev.badcasserole.com/",
+        "AUTH0_DOMAIN": "dev-q5itijfspt3smgyw.us.auth0.com",
+        "AUTH0_AUDIENCE": "https://accesscodes.badcasserole.com/",
       },
     },
     "prod": {
@@ -48,8 +57,15 @@
           "migrations_table": "__drizzle_migrations",
         },
       ],
+      "routes": [
+        {
+          "pattern": "accesscodes-prod.badcasserole.com",
+          "custom_domain": true,
+        },
+      ],
       "vars": {
         "CLOUDFLARE_DATABASE_ID": "e9eb4ee3-9028-429d-9d77-2c67e1cfb255",
+        "APP_BASE_URL": "https://accesscodes.badcasserole.com/",
       },
     },
   },

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import LayoutClient from "./layout-client";
 
 export const metadata: Metadata = {
   title: "Access codes map",
@@ -10,5 +11,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <div>{children}</div>;
+  // The layout is a client component, so we can use a hook to check permissions of the logged in user.
+  return <LayoutClient>{children}</LayoutClient>;
 }

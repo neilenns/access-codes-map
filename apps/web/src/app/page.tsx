@@ -1,6 +1,5 @@
 import { Button } from "@/components/ui/button";
 import { DoorOpen } from "lucide-react";
-import Link from "next/link";
 
 export default function Home() {
   return (
@@ -13,7 +12,8 @@ export default function Home() {
           </div>
         </div>
         <Button size="lg" asChild>
-          <Link href="/map">Launch the map</Link>
+          {/* This is an <a> instead of a <Link> so it works with Auth0 routing. */}
+          <a href="/map">Launch the map</a>
         </Button>
       </div>
     </main>

@@ -18,13 +18,14 @@
     "start": "next start"
   },
   "dependencies": {
-    "@dotenvx/dotenvx": "^1.44.0",
+    "@auth0/nextjs-auth0": "^4.5.1",
     "@opennextjs/cloudflare": "^1.0.3",
     "@radix-ui/react-slot": "^1.2.2",
     "better-sqlite3": "^11.10.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "drizzle-orm": "^0.43.1",
+    "jwt-decode": "^4.0.0",
     "lucide-react": "^0.511.0",
     "next": "15.3.2",
     "react": "^19.0.0",
