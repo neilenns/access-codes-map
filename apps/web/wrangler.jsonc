@@ -28,6 +28,7 @@
           "migrations_table": "__drizzle_migrations",
         },
       ],
+      "route": "accesscodes-dev.badcasserole.com/*",
       "vars": {
         "CLOUDFLARE_DATABASE_ID": "5a20bb2b-7f7c-454a-b8d6-f5505549de49",
         "APP_BASE_URL": "https://accesscodes-dev.badcasserole.com/",
@@ -51,6 +52,7 @@
           "migrations_table": "__drizzle_migrations",
         },
       ],
+      "route": "accesscodes.badcasserole.com/*",
       "vars": {
         "CLOUDFLARE_DATABASE_ID": "e9eb4ee3-9028-429d-9d77-2c67e1cfb255",
         "APP_BASE_URL": "https://accesscodes.badcasserole.com/",
