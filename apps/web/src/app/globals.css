@@ -123,4 +123,10 @@ body {
   body {
     @apply bg-background text-foreground;
   }
+  html,
+  body,
+  #__next,
+  #root {
+    @apply h-full;
+  }
 }
