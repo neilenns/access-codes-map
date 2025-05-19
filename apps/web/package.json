@@ -20,6 +20,7 @@
   "dependencies": {
     "@auth0/nextjs-auth0": "^4.5.1",
     "@opennextjs/cloudflare": "^1.0.3",
+    "@radix-ui/react-popover": "^1.1.13",
     "@radix-ui/react-slot": "^1.2.2",
     "better-sqlite3": "^11.10.0",
     "class-variance-authority": "^0.7.1",

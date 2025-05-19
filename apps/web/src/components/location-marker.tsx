@@ -1,5 +1,5 @@
 import { LocationWithUsers } from "@/db/locations";
-import { Marker } from "react-leaflet";
+import { Marker, Popup } from "react-leaflet";
 import { BlueMarker, YellowMarker } from "./custom-markers";
 
 export interface LocationMarkerProperties {
@@ -14,6 +14,11 @@ export default function LocationMarkers({
       position={[location.latitude, location.longitude]}
       key={location.id}
       icon={location.hasToilet ? YellowMarker : BlueMarker}
-    ></Marker>
+    >
+      <Popup>
+        <h1>{location.title}</h1>
+        <p>{location.note}</p>
+      </Popup>
+    </Marker>
   );
 }
