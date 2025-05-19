@@ -5,8 +5,8 @@ import { getAuth0Client } from "./lib/auth0";
 // This has to be done using process.env instead of the zod-parsed ENV as it
 // runs in a separate runtime just for middleware.
 const authDisabled =
-  process.env.NODE_ENV === "development" && process.env.DISABLE_AUTH === "true";
-
+  process.env.NODE_ENV === "development" &&
+  ["true", "1"].includes(String(process.env.DISABLE_AUTH));
 // This method of protecting routes comes from https://github.com/auth0/nextjs-auth0/blob/main/EXAMPLES.md#middleware
 export async function middleware(request: NextRequest) {
   let authorizationResponse: NextResponse;
