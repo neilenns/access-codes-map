@@ -11,5 +11,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // The layout is a client component, so we can use a hook to check permissions of the logged in user.
   return <LayoutClient>{children}</LayoutClient>;
 }
