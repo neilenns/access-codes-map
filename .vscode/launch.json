@@ -22,7 +22,7 @@
         "action": "debugWithEdge",
         "killOnServerStop": true,
         "pattern": "- Local:.+(https?://.+)",
-        "uriFormat": "%s",
+        "uriFormat": "%s/map",
         "webRoot": "${workspaceFolder}/apps/web/src"
       },
       "type": "node-terminal"

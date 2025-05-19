@@ -34,5 +34,5 @@ export default function LayoutClient({
     return <UnauthorizedPage />;
   }
 
-  return <div>{children}</div>;
+  return <main className="w-screen h-screen">{children}</main>;
 }
