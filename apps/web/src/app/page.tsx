@@ -12,6 +12,7 @@ export default function Home() {
           </div>
         </div>
         <Button size="lg" asChild>
+          {/* This is an <a> instead of a <Link> so it works with Auth0 routing. */}
           <a href="/map">Launch the map</a>
         </Button>
       </div>
