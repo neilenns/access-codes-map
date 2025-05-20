@@ -8,13 +8,10 @@ export interface LocationMarkerProperties {
   location: LocationWithUsers;
 }
 
-export default function LocationMarkers({
-  location,
-}: LocationMarkerProperties) {
+export default function LocationMarker({ location }: LocationMarkerProperties) {
   return (
     <Marker
       position={[location.latitude, location.longitude]}
-      key={location.id}
       icon={location.hasToilet ? YellowMarker : BlueMarker}
     >
       <Popup>
@@ -28,10 +25,10 @@ export default function LocationMarkers({
             {new Date(location.lastModified).toISOString().split("T")[0]}
           </p>
           <div className="flex justify-center mt-4 space-x-2">
-            <Button variant="ghost" size="icon">
+            <Button variant="ghost" size="icon" aria-label="Edit location">
               <EditIcon className="w-4 h-4" />
             </Button>
-            <Button variant="ghost" size="icon">
+            <Button variant="ghost" size="icon" aria-label="Delete location">
               <TrashIcon className="w-4 h-4" />
             </Button>
           </div>

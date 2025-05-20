@@ -1,40 +1,41 @@
 import MarkerLayer from "@/components/marker-layer";
 import { LocationsWithUsers } from "@/db/locations";
 import * as L from "leaflet";
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
 import { LayersControl, MapContainer, TileLayer } from "react-leaflet";
 
 export interface MapProperties {
   locations: LocationsWithUsers;
-  onSignOutClick?: React.MouseEventHandler;
 }
 
-export default function LocationsMap({ locations }: MapProperties) {
-  // eslint-disable-next-line unicorn/no-null
-  const [map, setMap] = useState<L.Map | null>(null);
+// Seattle, WA
+const DEFAULT_CENTER: L.LatLngExpression = [
+  47.654_961_858_209_56,
+  -122.252_018_473_532_25,
+];
 
-  const storeMapReference = (reference: L.Map | null) => {
-    if (reference) {
-      setMap(reference);
-    }
-  };
+const DEFAULT_ZOOM = 11;
+
+export default function LocationsMap({ locations }: MapProperties) {
+  const mapReference = useRef<L.Map | null>(null);
 
   // Hide the zoom control on mobile devices. Code from
   // https://gis.stackexchange.com/a/259718.
   useEffect(() => {
+    const map = mapReference.current;
     if (L.Browser.mobile && map) {
       map.removeControl(map.zoomControl);
     }
-  }, [map]);
+  }, []);
 
   return (
     <div className="h-screen w-full">
       <MapContainer
         className="h-full w-full"
-        center={[47.654_961_858_209_56, -122.252_018_473_532_25]}
-        zoom={11}
+        center={DEFAULT_CENTER}
+        zoom={DEFAULT_ZOOM}
         scrollWheelZoom={true}
-        ref={storeMapReference}
+        ref={mapReference}
       >
         <LayersControl position="topright">
           <LayersControl.BaseLayer checked name="Roads">

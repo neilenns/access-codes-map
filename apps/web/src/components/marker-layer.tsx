@@ -8,9 +8,11 @@ export interface MarkerLayerProperties {
 export default function MarkerLayer({ locations }: MarkerLayerProperties) {
   return (
     <>
-      {locations.map((location) => (
-        <LocationMarker location={location} key={location.id} />
-      ))}
+      {locations.length > 0
+        ? locations.map((location) => (
+            <LocationMarker location={location} key={location.id} />
+          ))
+        : undefined}
     </>
   );
 }
