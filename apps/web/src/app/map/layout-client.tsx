@@ -3,6 +3,7 @@
 import { Spinner } from "@/components/ui/spinner";
 import { useCheckPermissions } from "@/hooks/use-check-permissions";
 import { Permissions } from "@/types/permissions";
+import "leaflet/dist/leaflet.css";
 import React from "react";
 import UnauthorizedPage from "./unauthorized";
 
@@ -34,5 +35,5 @@ export default function LayoutClient({
     return <UnauthorizedPage />;
   }
 
-  return <div>{children}</div>;
+  return <main>{children}</main>;
 }

@@ -14,3 +14,4 @@ export const getAllLocations = async () => {
 };
 
 export type LocationsWithUsers = Awaited<ReturnType<typeof getAllLocations>>;
+export type LocationWithUsers = LocationsWithUsers[number];

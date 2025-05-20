@@ -9,7 +9,7 @@
       },
       "label": "Seed DB",
       "options": {
-        "cwd": "${workspaceFolder}/apps/api"
+        "cwd": "${workspaceFolder}/apps/web"
       },
       "problemMatcher": [],
       "type": "shell"

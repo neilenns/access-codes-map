@@ -5,11 +5,7 @@ export default async function MapPage() {
   try {
     const locations = await getAllLocations();
 
-    return (
-      <main>
-        <ClientSection locations={locations} />
-      </main>
-    );
+    return <ClientSection locations={locations} />;
   } catch {
     return (
       <div

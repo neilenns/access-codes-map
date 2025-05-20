@@ -1,17 +1,58 @@
+import MarkerLayer from "@/components/marker-layer";
 import { LocationsWithUsers } from "@/db/locations";
+import * as L from "leaflet";
+import { useEffect, useRef } from "react";
+import { LayersControl, MapContainer, TileLayer } from "react-leaflet";
 
 export interface MapProperties {
   locations: LocationsWithUsers;
 }
 
+// Seattle, WA
+const DEFAULT_CENTER: L.LatLngExpression = [
+  47.654_961_858_209_56,
+  -122.252_018_473_532_25,
+];
+
+const DEFAULT_ZOOM = 11;
+
 export default function LocationsMap({ locations }: MapProperties) {
+  const mapReference = useRef<L.Map | null>(null);
+
+  // Hide the zoom control on mobile devices. Code from
+  // https://gis.stackexchange.com/a/259718.
+  useEffect(() => {
+    const map = mapReference.current;
+    if (L.Browser.mobile && map) {
+      map.removeControl(map.zoomControl);
+    }
+  }, []);
+
   return (
-    <div>
-      <ul>
-        {locations.map((location) => (
-          <li key={location.id}>{location.title}</li>
-        ))}
-      </ul>
+    <div className="h-screen w-full">
+      <MapContainer
+        className="h-full w-full"
+        center={DEFAULT_CENTER}
+        zoom={DEFAULT_ZOOM}
+        scrollWheelZoom={true}
+        ref={mapReference}
+      >
+        <LayersControl position="topright">
+          <LayersControl.BaseLayer checked name="Roads">
+            <TileLayer
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+          </LayersControl.BaseLayer>
+          <LayersControl.BaseLayer name="Satellite">
+            <TileLayer
+              attribution='Tiles courtesy of the <a href="https://usgs.gov/">U.S. Geological Survey</a>'
+              url="https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryOnly/MapServer/tile/{z}/{y}/{x}"
+            />
+          </LayersControl.BaseLayer>
+        </LayersControl>
+        <MarkerLayer locations={locations} />
+      </MapContainer>
     </div>
   );
 }
