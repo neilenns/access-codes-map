@@ -48,9 +48,9 @@ runs:
         restore-keys: |
           ${{ runner.os }}-nextjs-${{ hashFiles('./pnpm-lock.yaml') }}-
 
-    - uses: pnpm/action-setup@v4
+    - name: Install pnpm
+      uses: pnpm/action-setup@v4
       with:
-        version: 10.10.0
         run_install: false
 
     - name: Use Node.js
