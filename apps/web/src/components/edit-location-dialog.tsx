@@ -30,9 +30,14 @@ export default function EditLocationDialog() {
               : "Enter the details for this location."}
           </DialogDescription>
         </DialogHeader>
+        <input type="hidden" name="id" defaultValue={selectedLocation?.id} />
         <div className="grid w-full items-center gap-1.5">
           <Label htmlFor="title">Location</Label>
-          <Input id="title" defaultValue={selectedLocation?.title ?? ""} />
+          <Input
+            id="title"
+            name="title"
+            defaultValue={selectedLocation?.title ?? ""}
+          />
         </div>
         <div className="grid w-full items-center gap-1.5">
           <Label htmlFor="note">Note</Label>
