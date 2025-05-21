@@ -1,6 +1,7 @@
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -23,6 +24,11 @@ export default function EditLocationDialog() {
           <DialogTitle>
             {isEditing ? "Edit location" : "Add location"}
           </DialogTitle>
+          <DialogDescription>
+            {isEditing
+              ? "Update the details for this location."
+              : "Enter the details for this location."}
+          </DialogDescription>
         </DialogHeader>
         <div className="grid w-full items-center gap-1.5">
           <Label htmlFor="title">Location</Label>
@@ -37,9 +43,7 @@ export default function EditLocationDialog() {
             <Button variant="secondary" onClick={closeDialog}>
               Cancel
             </Button>
-            <Button variant="default">
-              {isEditing ? "Save changes" : "Create location"}
-            </Button>
+            <Button variant="default">{isEditing ? "Save" : "Add"}</Button>
           </div>
         </DialogFooter>
       </DialogContent>
