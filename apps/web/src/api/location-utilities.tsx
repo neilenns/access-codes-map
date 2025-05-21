@@ -78,11 +78,13 @@ export function transformFormData(payload: FormData): TransformResult {
   if (!validatedData.success) {
     const errors = validatedData.error.flatten().fieldErrors;
     const fields: Record<string, string> = {};
-    for (const key of Object.keys(locationFormData)) {
-      // eslint-disable-next-line security/detect-object-injection
-      fields[key] = JSON.stringify(locationFormData[key]);
+    const errorKeys = Object.keys(validatedData.error.flatten().fieldErrors);
+    for (const key of errorKeys) {
+      if (Object.prototype.hasOwnProperty.call(locationFormData, key)) {
+        // eslint-disable-next-line security/detect-object-injection
+        fields[key] = JSON.stringify(locationFormData[key]);
+      }
     }
-
     console.log(`Schema validation errors: ${JSON.stringify(errors)}`);
 
     return {

@@ -31,7 +31,7 @@ export const handleUpdateLocation = async (
   }
 
   // parsed.data.modifiedById = session.user.sub;
-  parsed.data.modifiedById = "u1";
+  parsed.data.modifiedById = session.user.sub;
 
   try {
     await updateLocation(parsed.data);
