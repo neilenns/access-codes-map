@@ -52,7 +52,17 @@ export function transformFormData(payload: FormData): TransformResult {
     };
   }
 
-  const locationFormData = Object.fromEntries(payload);
+  const locationFormData = Object.fromEntries(payload) as Record<
+    string,
+    unknown
+  >;
+
+  // Convert string values to boolean and number types
+  locationFormData.hasToilet = convertToBoolean(locationFormData.hasToilet);
+  locationFormData.latitude = convertToNumber(locationFormData.latitude);
+  locationFormData.longitude = convertToNumber(locationFormData.longitude);
+  locationFormData.id = convertToNumber(locationFormData.id);
+
   const validatedData = LocationFormDataSchema.safeParse(locationFormData);
 
   if (!validatedData.success) {
