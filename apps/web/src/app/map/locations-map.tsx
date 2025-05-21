@@ -1,3 +1,4 @@
+import EditLocationDialog from "@/components/edit-location-dialog";
 import MarkerLayer from "@/components/marker-layer";
 import { LocationsWithUsers } from "@/db/locations";
 import * as L from "leaflet";
@@ -53,6 +54,7 @@ export default function LocationsMap({ locations }: MapProperties) {
         </LayersControl>
         <MarkerLayer locations={locations} />
       </MapContainer>
+      <EditLocationDialog />
     </div>
   );
 }

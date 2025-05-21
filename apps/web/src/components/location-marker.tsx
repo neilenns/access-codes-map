@@ -1,4 +1,5 @@
 import { LocationWithUsers } from "@/db/locations";
+import { useEditLocationStore } from "@/hooks/use-edit-location-store"; // Added import
 import { EditIcon, TrashIcon } from "lucide-react";
 import { Marker, Popup } from "react-leaflet";
 import { BlueMarker, YellowMarker } from "./custom-markers";
@@ -6,9 +7,12 @@ import { Button } from "./ui/button";
 
 export interface LocationMarkerProperties {
   location: LocationWithUsers;
+  // onEdit: (location: LocationWithUsers) => void; // Removed onEdit prop
 }
 
 export default function LocationMarker({ location }: LocationMarkerProperties) {
+  const { openDialog } = useEditLocationStore();
+
   return (
     <Marker
       position={[location.latitude, location.longitude]}
@@ -25,7 +29,14 @@ export default function LocationMarker({ location }: LocationMarkerProperties) {
             {new Date(location.lastModified).toISOString().split("T")[0]}
           </p>
           <div className="flex justify-center mt-4 space-x-2">
-            <Button variant="ghost" size="icon" aria-label="Edit location">
+            <Button
+              variant="ghost"
+              size="icon"
+              aria-label="Edit location"
+              onClick={() => {
+                openDialog(location);
+              }}
+            >
               <EditIcon className="w-4 h-4" />
             </Button>
             <Button variant="ghost" size="icon" aria-label="Delete location">
