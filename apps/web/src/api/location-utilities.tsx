@@ -8,7 +8,7 @@ export interface OnSubmitLocationState {
   message: string;
   fields?: Record<string, string>;
   errors?: Record<string, string[]>;
-  hasSubmitted: boolean;
+  isSubmitted: boolean;
 }
 
 export type TransformResult =
@@ -25,7 +25,14 @@ export type TransformResult =
  * @returns The converted boolean value
  */
 export const convertToBoolean = (value: unknown) => {
-  return value === "true" || value === true;
+  if (typeof value === "boolean") return value;
+
+  if (typeof value === "string") {
+    const normalized = value.toLowerCase().trim();
+    return normalized === "true" || normalized === "yes" || normalized === "1";
+  }
+
+  return false;
 };
 
 /**

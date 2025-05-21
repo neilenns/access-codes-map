@@ -9,7 +9,6 @@ import { Button } from "./ui/button";
 
 export interface LocationMarkerProperties {
   location: LocationWithUsers;
-  // onEdit: (location: LocationWithUsers) => void; // Removed onEdit prop
 }
 
 export default function LocationMarker({ location }: LocationMarkerProperties) {

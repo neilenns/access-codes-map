@@ -27,7 +27,7 @@ import { useForm } from "react-hook-form";
 const initialFormState: OnSubmitLocationState = {
   success: false,
   message: "",
-  hasSubmitted: false,
+  isSubmitted: false,
 };
 
 export default function EditLocationDialog() {
@@ -59,12 +59,13 @@ export default function EditLocationDialog() {
   }, [isOpen, selectedLocation, form]);
 
   useEffect(() => {
-    if (formState.success && formState.hasSubmitted) {
+    if (formState.success && formState.isSubmitted) {
       closeDialog();
-      // This is really really wrong, but it works for now.
-      formState.hasSubmitted = false;
+      form.reset(undefined, {
+        keepIsSubmitted: false,
+      });
     }
-  }, [formState.success, formState.hasSubmitted, closeDialog, formState]);
+  }, [formState.success, closeDialog, formState, form]);
 
   const isEditing = selectedLocation !== undefined;
 
@@ -106,7 +107,7 @@ export default function EditLocationDialog() {
               />
               <Label htmlFor="has-toilet">Has toilet</Label>
             </div>
-            {formState.hasSubmitted && !formState.success && (
+            {formState.isSubmitted && !formState.success && (
               <Alert variant="destructive">
                 <AlertTitle>Error</AlertTitle>
                 <AlertDescription>{formState.message}</AlertDescription>

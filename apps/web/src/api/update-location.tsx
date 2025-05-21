@@ -14,8 +14,8 @@ export const handleUpdateLocation = async (
   if (!parsed.success) {
     return {
       success: false,
-      hasSubmitted: true,
       message: "Validation failed",
+      isSubmitted: true,
       fields: parsed.fields,
       errors: parsed.errors,
     };
@@ -25,7 +25,7 @@ export const handleUpdateLocation = async (
   if (!session) {
     return {
       success: false,
-      hasSubmitted: true,
+      isSubmitted: true,
       message: "User not authenticated",
     };
   }
@@ -39,7 +39,7 @@ export const handleUpdateLocation = async (
     console.error("Error updating location:", error);
     return {
       success: false,
-      hasSubmitted: true,
+      isSubmitted: true,
       message: "Failed to update location",
     };
   }
@@ -48,7 +48,7 @@ export const handleUpdateLocation = async (
 
   return {
     success: true,
-    hasSubmitted: true,
+    isSubmitted: true,
     message: "Location updated successfully",
   };
 };
