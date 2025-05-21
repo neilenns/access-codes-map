@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
 import { useEditLocationStore } from "@/hooks/use-edit-location-store";
 import {
@@ -60,8 +61,10 @@ export default function EditLocationDialog() {
   useEffect(() => {
     if (formState.success && formState.hasSubmitted) {
       closeDialog();
+      // This is really really wrong, but it works for now.
+      formState.hasSubmitted = false;
     }
-  }, [formState.success, formState.hasSubmitted, closeDialog]);
+  }, [formState.success, formState.hasSubmitted, closeDialog, formState]);
 
   const isEditing = selectedLocation !== undefined;
 
@@ -90,6 +93,18 @@ export default function EditLocationDialog() {
             <div className="grid w-full items-center gap-1.5">
               <Label htmlFor="note">Note</Label>
               <Textarea id="note" {...form.register("note")} />
+            </div>
+            <div className="flex items-center space-x-2">
+              {/* hidden field for boolean switch */}
+              <input type="hidden" {...form.register("hasToilet")} />
+              <Switch
+                id="has-toilet"
+                checked={form.watch("hasToilet")}
+                onCheckedChange={(checked) => {
+                  form.setValue("hasToilet", checked);
+                }}
+              />
+              <Label htmlFor="has-toilet">Has toilet</Label>
             </div>
             {formState.hasSubmitted && !formState.success && (
               <Alert variant="destructive">
