@@ -54,6 +54,12 @@ export default function EditLocationDialog() {
     }
   }, [isOpen, selectedLocation, form]);
 
+  useEffect(() => {
+    if (formState.success && formState.hasSubmitted) {
+      closeDialog();
+    }
+  }, [formState.success, formState.hasSubmitted, closeDialog]);
+
   const isEditing = selectedLocation !== undefined;
 
   return (
@@ -82,11 +88,9 @@ export default function EditLocationDialog() {
               <Label htmlFor="note">Note</Label>
               <Textarea id="note" {...form.register("note")} />
             </div>
-            {formState.hasSubmitted && (
-              <Alert variant={formState.success ? "default" : "destructive"}>
-                <AlertTitle>
-                  {formState.success ? "Success!" : "Error"}
-                </AlertTitle>
+            {formState.hasSubmitted && !formState.success && (
+              <Alert variant="destructive">
+                <AlertTitle>Error</AlertTitle>
                 <AlertDescription>{formState.message}</AlertDescription>
               </Alert>
             )}

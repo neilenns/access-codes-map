@@ -1,5 +1,6 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
 import { OnSubmitLocationState, transformFormData } from "./location-utilities";
 
 export const updateLocation = async (
@@ -19,6 +20,8 @@ export const updateLocation = async (
   }
 
   await new Promise((resolve) => setTimeout(resolve, 500));
+
+  revalidatePath("/map");
 
   return {
     success: true,
