@@ -18,12 +18,12 @@ export default function EditLocationDialog() {
 
   return (
     <Dialog open={isOpen} onOpenChange={closeDialog}>
-      <DialogHeader>
-        <DialogTitle>
-          {isEditing ? "Edit location" : "Add location"}
-        </DialogTitle>
-      </DialogHeader>
       <DialogContent>
+        <DialogHeader>
+          <DialogTitle>
+            {isEditing ? "Edit location" : "Add location"}
+          </DialogTitle>
+        </DialogHeader>
         <div className="grid w-full items-center gap-1.5">
           <Label htmlFor="title">Location</Label>
           <Input id="title" defaultValue={selectedLocation?.title ?? ""} />
@@ -32,17 +32,17 @@ export default function EditLocationDialog() {
           <Label htmlFor="note">Note</Label>
           <Textarea id="note" defaultValue={selectedLocation?.note ?? ""} />
         </div>
+        <DialogFooter>
+          <div>
+            <Button variant="secondary" onClick={closeDialog}>
+              Cancel
+            </Button>
+            <Button variant="default">
+              {isEditing ? "Save changes" : "Create location"}
+            </Button>
+          </div>
+        </DialogFooter>
       </DialogContent>
-      <DialogFooter>
-        <div>
-          <Button variant="secondary" onClick={closeDialog}>
-            Cancel
-          </Button>
-          <Button variant="default">
-            {isEditing ? "Save changes" : "Create location"}
-          </Button>
-        </div>
-      </DialogFooter>
     </Dialog>
   );
 }
