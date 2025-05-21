@@ -1,4 +1,7 @@
-import { LocationFormData, LocationFormDataSchema } from "@/schema/location";
+import {
+  LocationFormData,
+  LocationFormDataSchema,
+} from "@/schema/location-form-data";
 
 export interface OnSubmitLocationState {
   success: boolean;

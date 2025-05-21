@@ -1,5 +1,5 @@
-import { OnSubmitLocationState } from "@/app/api/location-utilities";
-import { updateLocation } from "@/app/api/update-location";
+import { OnSubmitLocationState } from "@/api/location-utilities";
+import { handleUpdateLocation } from "@/api/update-location";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import {
@@ -14,7 +14,10 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useEditLocationStore } from "@/hooks/use-edit-location-store";
-import { LocationFormData, LocationFormDataSchema } from "@/schema/location";
+import {
+  LocationFormData,
+  LocationFormDataSchema,
+} from "@/schema/location-form-data";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
 import { useActionState, useEffect } from "react";
@@ -29,7 +32,7 @@ const initialFormState: OnSubmitLocationState = {
 export default function EditLocationDialog() {
   const { isOpen, selectedLocation, closeDialog } = useEditLocationStore();
   const [formState, formAction, isPending] = useActionState(
-    updateLocation,
+    handleUpdateLocation,
     initialFormState,
   );
 

@@ -7,6 +7,7 @@ export const LocationFormDataSchema = z.object({
   latitude: z.number(),
   longitude: z.number(),
   hasToilet: z.boolean(),
+  modifiedById: z.string().optional(),
 });
 
 export type LocationFormData = z.infer<typeof LocationFormDataSchema>;
