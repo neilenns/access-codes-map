@@ -95,7 +95,7 @@ export default function EditLocationDialog() {
               </Alert>
             )}
             <DialogFooter>
-              <div>
+              <div className="flex space-x-2">
                 <Button
                   variant="secondary"
                   disabled={isPending}
