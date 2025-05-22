@@ -1,4 +1,5 @@
 import { LocationWithUsers } from "@/db/locations";
+import { useDeleteLocationStore } from "@/hooks/use-delete-location-store";
 import { useEditLocationStore } from "@/hooks/use-edit-location-store"; // Added import
 import type { Marker as MarkerType } from "leaflet";
 import { EditIcon, TrashIcon } from "lucide-react";
@@ -13,6 +14,8 @@ export interface LocationMarkerProperties {
 
 export default function LocationMarker({ location }: LocationMarkerProperties) {
   const { openDialog } = useEditLocationStore();
+  const { openDeleteDialog } = useDeleteLocationStore();
+
   const markerReference = useRef<MarkerType>(null);
 
   return (
@@ -43,7 +46,15 @@ export default function LocationMarker({ location }: LocationMarkerProperties) {
             >
               <EditIcon className="w-4 h-4" />
             </Button>
-            <Button variant="ghost" size="icon" aria-label="Delete location">
+            <Button
+              variant="ghost"
+              size="icon"
+              aria-label="Delete location"
+              onClick={() => {
+                markerReference.current?.closePopup();
+                openDeleteDialog(location);
+              }}
+            >
               <TrashIcon className="w-4 h-4" />
             </Button>
           </div>

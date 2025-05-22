@@ -23,6 +23,7 @@
     "pnpx",
     "serviceworker",
     "shadcn",
+    "sonner",
     "Turborepo"
   ],
   "debug.internalConsoleOptions": "neverOpen",

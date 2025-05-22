@@ -16,6 +16,17 @@ export const getAllLocations = async () => {
   }
 };
 
+export const deleteLocation = async (id: number) => {
+  try {
+    const database = await getDatabaseAsync();
+
+    return await database.delete(locations).where(eq(locations.id, id));
+  } catch (error) {
+    console.error("Error deleting location:", error);
+    throw error; // Rethrow the error to handle it in the calling functions
+  }
+};
+
 export const addLocation = async (data: LocationFormData) => {
   try {
     const database = await getDatabaseAsync();

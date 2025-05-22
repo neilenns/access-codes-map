@@ -1,10 +1,12 @@
 "use client";
 
 import { CustomLocateControl } from "@/components/custom-locate-control";
+import DeleteLocationDialog from "@/components/delete-location-dialog";
 import EditLocationDialog from "@/components/edit-location-dialog";
 import { GeocodeControl } from "@/components/geocode-control";
 import MarkerLayer from "@/components/marker-layer";
 import { LocationsWithUsers } from "@/db/locations";
+import { useDeleteLocationStore } from "@/hooks/use-delete-location-store";
 import { useEditLocationStore } from "@/hooks/use-edit-location-store";
 import * as L from "leaflet";
 import { useEffect, useRef } from "react";
@@ -24,6 +26,9 @@ const DEFAULT_ZOOM = 11;
 
 export default function LocationsMap({ locations }: MapProperties) {
   const isEditLocationDialogOpen = useEditLocationStore(
+    (state) => state.isOpen,
+  );
+  const isDeleteLocationDialogOpen = useDeleteLocationStore(
     (state) => state.isOpen,
   );
   const mapReference = useRef<L.Map | null>(null);
@@ -78,6 +83,7 @@ export default function LocationsMap({ locations }: MapProperties) {
       {/* The EditLocationDialog component is conditionally rendered based on whether the dialog is open. */}
       {/* This ensures it is unmounted when closed, resetting all of the dialog state between renders. */}
       {isEditLocationDialogOpen && <EditLocationDialog />}
+      {isDeleteLocationDialogOpen && <DeleteLocationDialog />}
     </div>
   );
 }
