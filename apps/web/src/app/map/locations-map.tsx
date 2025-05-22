@@ -1,5 +1,6 @@
 "use client";
 
+import { CustomLocateControl } from "@/components/custom-locate-control";
 import EditLocationDialog from "@/components/edit-location-dialog";
 import { GeocodeControl } from "@/components/geocode-control";
 import MarkerLayer from "@/components/marker-layer";
@@ -60,8 +61,20 @@ export default function LocationsMap({ locations }: MapProperties) {
             />
           </LayersControl.BaseLayer>
         </LayersControl>
-        <GeocodeControl />
         <MarkerLayer locations={locations} />
+        <GeocodeControl />
+        <CustomLocateControl
+          position="topright"
+          options={{
+            setView: "always",
+            // High accuracy causes the dot to jump around too much when using on a mobile
+            // device so disable it. Leaving the code here with it as false so in the future I remember
+            // how to turn it on if I want to.
+            locateOptions: {
+              enableHighAccuracy: false,
+            },
+          }}
+        />
       </MapContainer>
       {/* The EditLocationDialog component is conditionally rendered based on whether the dialog is open. */}
       {/* This ensures it is unmounted when closed, resetting all of the dialog state between renders. */}
