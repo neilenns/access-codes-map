@@ -7,7 +7,8 @@ import MarkerLayer from "@/components/marker-layer";
 import { LocationsWithUsers } from "@/db/locations";
 import { useEditLocationStore } from "@/hooks/use-edit-location-store";
 import * as L from "leaflet";
-import { useEffect, useRef } from "react";
+import { LocateControl } from "leaflet.locatecontrol";
+import { useEffect, useRef, useState } from "react";
 import { LayersControl, MapContainer, TileLayer } from "react-leaflet";
 
 export interface MapProperties {
@@ -26,7 +27,10 @@ export default function LocationsMap({ locations }: MapProperties) {
   const isEditLocationDialogOpen = useEditLocationStore(
     (state) => state.isOpen,
   );
-
+  const [autoLocate] = useState(() => {
+    const storedValue = sessionStorage.getItem("autoLocate");
+    return storedValue ? sessionStorage.getItem("autoLocate") === "true" : true;
+  });
   const mapReference = useRef<L.Map | null>(null);
 
   // Hide the zoom control on mobile devices. Code from
@@ -37,6 +41,35 @@ export default function LocationsMap({ locations }: MapProperties) {
       map.removeControl(map.zoomControl);
     }
   }, []);
+
+  useEffect(() => {
+    sessionStorage.setItem("autoLocate", autoLocate.toString());
+  }, [autoLocate]);
+
+  useEffect(() => {
+    if (!mapReference.current) {
+      return;
+    }
+
+    // Add listeners for the locateactivate and locatedeactivate events so we can
+    // persist the setting in storage and restore it when the map is reloaded.
+    // I'd normally use useMapEvents() for this but it isn't accessible at any
+    // level other than *inside* the MapContainer.
+    mapReference.current.addEventListener("locateactivate", (_event) => {
+      sessionStorage.setItem("autoLocate", "true");
+    });
+    mapReference.current.addEventListener("locatedeactivate", (_event) => {
+      sessionStorage.setItem("autoLocate", "false");
+    });
+  }, [mapReference]);
+
+  // This receives the reference to the LocateControl after it is created, and enables
+  // auto-locating if the autoLocate prop is true.
+  const handleAutoLocateReference = (reference: LocateControl | null) => {
+    if (autoLocate && reference) {
+      reference.start();
+    }
+  };
 
   return (
     <div className="h-screen w-full">
@@ -64,6 +97,7 @@ export default function LocationsMap({ locations }: MapProperties) {
         <MarkerLayer locations={locations} />
         <GeocodeControl />
         <CustomLocateControl
+          ref={handleAutoLocateReference}
           position="topright"
           options={{
             setView: "always",
