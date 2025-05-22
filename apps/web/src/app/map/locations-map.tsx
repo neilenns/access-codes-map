@@ -1,3 +1,5 @@
+"use client";
+
 import EditLocationDialog from "@/components/edit-location-dialog";
 import { GeocodeControl } from "@/components/geocode-control";
 import MarkerLayer from "@/components/marker-layer";
