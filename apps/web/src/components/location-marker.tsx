@@ -1,13 +1,14 @@
 import { LocationWithUsers } from "@/db/locations";
+import { useCheckPermissions } from "@/hooks/use-check-permissions";
 import { useDeleteLocationStore } from "@/hooks/use-delete-location-store";
 import { useEditLocationStore } from "@/hooks/use-edit-location-store"; // Added import
+import { Permissions } from "@/types/permissions";
 import type { Marker as MarkerType } from "leaflet";
 import { EditIcon, TrashIcon } from "lucide-react";
 import { useRef } from "react";
 import { Marker, Popup } from "react-leaflet";
 import { BlueMarker, YellowMarker } from "./custom-markers";
 import { Button } from "./ui/button";
-
 export interface LocationMarkerProperties {
   location: LocationWithUsers;
 }
@@ -15,8 +16,16 @@ export interface LocationMarkerProperties {
 export default function LocationMarker({ location }: LocationMarkerProperties) {
   const { openDialog } = useEditLocationStore();
   const { openDeleteDialog } = useDeleteLocationStore();
+  const { permissionsStatus, isLoading } = useCheckPermissions(
+    Permissions.EditCodes,
+  );
 
   const markerReference = useRef<MarkerType>(null);
+
+  if (isLoading) {
+    // eslint-disable-next-line unicorn/no-null
+    return null;
+  }
 
   return (
     <Marker
@@ -35,28 +44,32 @@ export default function LocationMarker({ location }: LocationMarkerProperties) {
             {new Date(location.lastModified).toISOString().split("T")[0]}
           </p>
           <div className="flex justify-center mt-4 space-x-2">
-            <Button
-              variant="ghost"
-              size="icon"
-              aria-label="Edit location"
-              onClick={() => {
-                markerReference.current?.closePopup();
-                openDialog(location);
-              }}
-            >
-              <EditIcon className="w-4 h-4" />
-            </Button>
-            <Button
-              variant="ghost"
-              size="icon"
-              aria-label="Delete location"
-              onClick={() => {
-                markerReference.current?.closePopup();
-                openDeleteDialog(location);
-              }}
-            >
-              <TrashIcon className="w-4 h-4" />
-            </Button>
+            {permissionsStatus[Permissions.EditCodes] && (
+              <>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  aria-label="Edit location"
+                  onClick={() => {
+                    markerReference.current?.closePopup();
+                    openDialog(location);
+                  }}
+                >
+                  <EditIcon className="w-4 h-4" />
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  aria-label="Delete location"
+                  onClick={() => {
+                    markerReference.current?.closePopup();
+                    openDeleteDialog(location);
+                  }}
+                >
+                  <TrashIcon className="w-4 h-4" />
+                </Button>
+              </>
+            )}
           </div>
         </div>
       </Popup>
