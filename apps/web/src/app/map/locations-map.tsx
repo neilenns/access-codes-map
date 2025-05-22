@@ -1,4 +1,7 @@
+"use client";
+
 import EditLocationDialog from "@/components/edit-location-dialog";
+import { GeocodeControl } from "@/components/geocode-control";
 import MarkerLayer from "@/components/marker-layer";
 import { LocationsWithUsers } from "@/db/locations";
 import { useEditLocationStore } from "@/hooks/use-edit-location-store";
@@ -57,6 +60,7 @@ export default function LocationsMap({ locations }: MapProperties) {
             />
           </LayersControl.BaseLayer>
         </LayersControl>
+        <GeocodeControl />
         <MarkerLayer locations={locations} />
       </MapContainer>
       {/* The EditLocationDialog component is conditionally rendered based on whether the dialog is open. */}
