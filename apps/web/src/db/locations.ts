@@ -16,6 +16,27 @@ export const getAllLocations = async () => {
   }
 };
 
+export const addLocation = async (data: LocationFormData) => {
+  try {
+    const database = await getDatabaseAsync();
+
+    return await database.insert(locations).values({
+      title: data.title,
+      note: data.note,
+      latitude: data.latitude,
+      longitude: data.longitude,
+      hasToilet: data.hasToilet,
+      createdById: data.createdById,
+      modifiedById: data.modifiedById,
+      lastModified: sql`(CURRENT_TIMESTAMP)`,
+      created: sql`(CURRENT_TIMESTAMP)`,
+    });
+  } catch (error) {
+    console.error("Error adding location:", error);
+    throw error; // Rethrow the error to handle it in the calling functions
+  }
+};
+
 export const updateLocation = async (data: LocationFormData) => {
   if (!data.id) {
     throw new Error("Location ID is required for update");

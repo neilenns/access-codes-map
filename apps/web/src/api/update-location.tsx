@@ -1,6 +1,6 @@
 "use server";
 
-import { updateLocation } from "@/db/locations";
+import { addLocation, updateLocation } from "@/db/locations";
 import { getAuth0Client } from "@/lib/auth0";
 import { revalidatePath } from "next/cache";
 import { OnSubmitLocationState, transformFormData } from "./location-utilities";
@@ -30,11 +30,16 @@ export const handleUpdateLocation = async (
     };
   }
 
-  // parsed.data.modifiedById = session.user.sub;
+  // If there's no id it means it's a new location so set the createdById to the current user.
+  if (!parsed.data.id) {
+    parsed.data.createdById = session.user.sub;
+  }
   parsed.data.modifiedById = session.user.sub;
 
   try {
-    await updateLocation(parsed.data);
+    await (parsed.data.id
+      ? updateLocation(parsed.data)
+      : addLocation(parsed.data));
   } catch (error) {
     console.error("Error updating location:", error);
     return {

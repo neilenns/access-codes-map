@@ -64,7 +64,7 @@ export default function EditLocationDialog() {
     }
   }, [formState.success, closeDialog, formState, form]);
 
-  const isEditing = selectedLocation !== undefined;
+  const isEditing = selectedLocation?.id !== undefined;
 
   return (
     <Dialog open={isOpen} onOpenChange={closeDialog}>
