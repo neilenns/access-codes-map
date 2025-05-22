@@ -38,24 +38,31 @@ export default function MarkerLayer({ locations }: MarkerLayerProperties) {
   const { openDialog } = useEditLocationStore();
 
   // Adds a marker to the map when the user clicks on the map.
-  // eslint-disable-next-line @typescript-eslint/no-misused-promises
-  useMapEvent("contextmenu", async (event: LeafletMouseEvent) => {
-    const geoDetails = await reverseGeocode(event.latlng);
+  // Extract the async logic into a separate function
+  const handleContextMenu = async (event: LeafletMouseEvent) => {
+    try {
+      const geoDetails = await reverseGeocode(event.latlng);
+      const newLocation = {
+        title: geoDetails
+          ? (geoDetails.address?.building ??
+            `${geoDetails.address?.house_number ?? ""} ${
+              geoDetails.address?.road ?? ""
+            }`.trim())
+          : "",
+        latitude: event.latlng.lat,
+        longitude: event.latlng.lng,
+        note: "",
+        hasToilet: false,
+      };
+      openDialog(newLocation);
+    } catch (error) {
+      console.error("Reverse geocode failed:", error);
+    }
+  };
 
-    const newLocation = {
-      title: geoDetails
-        ? (geoDetails.address?.building ??
-          `${geoDetails.address?.house_number ?? ""} ${
-            geoDetails.address?.road ?? ""
-          }`.trim())
-        : "",
-      latitude: event.latlng.lat,
-      longitude: event.latlng.lng,
-      note: "",
-      hasToilet: false,
-    };
-
-    openDialog(newLocation);
+  // Call the async handler without making this callback async
+  useMapEvent("contextmenu", (event) => {
+    void handleContextMenu(event);
   });
 
   return (
