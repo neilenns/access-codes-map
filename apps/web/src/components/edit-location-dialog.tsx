@@ -61,9 +61,6 @@ export default function EditLocationDialog() {
   useEffect(() => {
     if (formState.success && formState.isSubmitted) {
       closeDialog();
-      form.reset(undefined, {
-        keepIsSubmitted: false,
-      });
     }
   }, [formState.success, closeDialog, formState, form]);
 
