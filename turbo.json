@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/turbo/schema.json",
-  "globalPassThroughEnv": ["DEPLOY_ENV", "NODE_ENV"],
+  "globalPassThroughEnv": ["DEPLOY_ENV", "NODE_ENV", "NEXT_TELEMETRY_DISABLED"],
   "tasks": {
     "cf:deploy": {
       "env": ["DEPLOY_ENV"]

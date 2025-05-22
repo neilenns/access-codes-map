@@ -23,6 +23,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
 import { useActionState, useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 
 const initialFormState: OnSubmitLocationState = {
   success: false,
@@ -59,10 +60,23 @@ export default function EditLocationDialog() {
   }, [isOpen, selectedLocation, form]);
 
   useEffect(() => {
-    if (formState.success && formState.isSubmitted) {
-      closeDialog();
+    if (!formState.isSubmitted) {
+      return;
     }
-  }, [formState.success, closeDialog, formState, form]);
+
+    if (formState.success) {
+      toast.success("Location saved successfully");
+    } else {
+      toast.error(formState.message);
+    }
+
+    closeDialog();
+  }, [
+    formState.success,
+    closeDialog,
+    formState.isSubmitted,
+    formState.message,
+  ]);
 
   const isEditing = selectedLocation?.id !== undefined;
 

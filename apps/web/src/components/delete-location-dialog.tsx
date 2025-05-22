@@ -10,14 +10,15 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { useDeleteLocationStore } from "@/hooks/use-delete-location-store";
+import { toast } from "sonner";
 
-const handleDeleteClick = async (id: number): Promise<boolean> => {
+const handleDeleteClick = async (id: number): Promise<void> => {
   try {
     await handleDeleteLocation(id);
-    return true;
+    toast.success("Location deleted successfully");
   } catch (error) {
     console.error("Error deleting location:", error);
-    return false;
+    toast.error("Failed to delete location");
   }
 };
 
