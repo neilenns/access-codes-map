@@ -41,11 +41,14 @@ export const handleUpdateLocation = async (
       ? updateLocation(parsed.data)
       : addLocation(parsed.data));
   } catch (error) {
-    console.error("Error updating location:", error);
+    console.error(
+      `Error ${parsed.data.id ? "updating" : "creating"} location:`,
+      error,
+    );
     return {
       success: false,
       isSubmitted: true,
-      message: "Failed to update location",
+      message: `Failed to ${parsed.data.id ? "update" : "create"} location`,
     };
   }
 
@@ -54,6 +57,6 @@ export const handleUpdateLocation = async (
   return {
     success: true,
     isSubmitted: true,
-    message: "Location updated successfully",
+    message: `Location ${parsed.data.id ? "updated" : "created"} successfully`,
   };
 };

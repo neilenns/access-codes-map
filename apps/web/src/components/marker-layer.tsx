@@ -38,7 +38,6 @@ export default function MarkerLayer({ locations }: MarkerLayerProperties) {
   const { openDialog } = useEditLocationStore();
 
   // Adds a marker to the map when the user clicks on the map.
-  // Extract the async logic into a separate function
   const handleContextMenu = async (event: LeafletMouseEvent) => {
     try {
       const geoDetails = await reverseGeocode(event.latlng);
@@ -60,7 +59,6 @@ export default function MarkerLayer({ locations }: MarkerLayerProperties) {
     }
   };
 
-  // Call the async handler without making this callback async
   useMapEvent("contextmenu", (event) => {
     void handleContextMenu(event);
   });
