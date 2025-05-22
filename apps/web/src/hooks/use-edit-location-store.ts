@@ -3,8 +3,8 @@ import { create } from "zustand";
 
 interface EditLocationState {
   isOpen: boolean;
-  selectedLocation?: LocationWithUsers;
-  openDialog: (location: LocationWithUsers) => void;
+  selectedLocation?: Partial<LocationWithUsers>;
+  openDialog: (location: Partial<LocationWithUsers>) => void;
   closeDialog: () => void;
 }
 
