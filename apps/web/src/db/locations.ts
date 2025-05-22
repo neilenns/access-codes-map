@@ -1,4 +1,7 @@
+import { LocationFormData } from "@/schema/location-form-data";
+import { eq, sql } from "drizzle-orm";
 import { getDatabaseAsync } from ".";
+import { locations } from "./schema/schema";
 
 export const getAllLocations = async () => {
   try {
@@ -9,6 +12,32 @@ export const getAllLocations = async () => {
     });
   } catch (error) {
     console.error("Error fetching locations:", error);
+    throw error; // Rethrow the error to handle it in the calling functions
+  }
+};
+
+export const updateLocation = async (data: LocationFormData) => {
+  if (!data.id) {
+    throw new Error("Location ID is required for update");
+  }
+
+  try {
+    const database = await getDatabaseAsync();
+
+    return await database
+      .update(locations)
+      .set({
+        title: data.title,
+        note: data.note,
+        latitude: data.latitude,
+        longitude: data.longitude,
+        hasToilet: data.hasToilet,
+        modifiedById: data.modifiedById,
+        lastModified: sql`(CURRENT_TIMESTAMP)`,
+      })
+      .where(eq(locations.id, data.id));
+  } catch (error) {
+    console.error("Error updating location:", error);
     throw error; // Rethrow the error to handle it in the calling functions
   }
 };

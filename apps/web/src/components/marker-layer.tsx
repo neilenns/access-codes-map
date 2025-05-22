@@ -1,18 +1,16 @@
-import { LocationsWithUsers } from "@/db/locations";
+import { LocationWithUsers } from "@/db/locations";
 import LocationMarker from "./location-marker";
 
 export interface MarkerLayerProperties {
-  locations: LocationsWithUsers;
+  locations: LocationWithUsers[];
 }
 
 export default function MarkerLayer({ locations }: MarkerLayerProperties) {
   return (
     <>
-      {locations.length > 0
-        ? locations.map((location) => (
-            <LocationMarker location={location} key={location.id} />
-          ))
-        : undefined}
+      {locations.map((location) => (
+        <LocationMarker key={location.id} location={location} />
+      ))}
     </>
   );
 }
