@@ -20,6 +20,11 @@ async function reverseGeocode(
   try {
     const response = await fetch(
       `https://nominatim.openstreetmap.org/reverse?lat=${latlng.lat.toString()}&lon=${latlng.lng.toString()}&format=json`,
+      {
+        headers: {
+          "User-Agent": "accesscodes.badcasserole.com",
+        },
+      },
     );
 
     if (!response.ok) {
