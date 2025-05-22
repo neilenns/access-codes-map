@@ -1,6 +1,7 @@
 import EditLocationDialog from "@/components/edit-location-dialog";
 import MarkerLayer from "@/components/marker-layer";
 import { LocationsWithUsers } from "@/db/locations";
+import { useEditLocationStore } from "@/hooks/use-edit-location-store";
 import * as L from "leaflet";
 import { useEffect, useRef } from "react";
 import { LayersControl, MapContainer, TileLayer } from "react-leaflet";
@@ -18,6 +19,10 @@ const DEFAULT_CENTER: L.LatLngExpression = [
 const DEFAULT_ZOOM = 11;
 
 export default function LocationsMap({ locations }: MapProperties) {
+  const isEditLocationDialogOpen = useEditLocationStore(
+    (state) => state.isOpen,
+  );
+
   const mapReference = useRef<L.Map | null>(null);
 
   // Hide the zoom control on mobile devices. Code from
@@ -54,7 +59,9 @@ export default function LocationsMap({ locations }: MapProperties) {
         </LayersControl>
         <MarkerLayer locations={locations} />
       </MapContainer>
-      <EditLocationDialog />
+      {/* The EditLocationDialog component is conditionally rendered based on whether the dialog is open. */}
+      {/* This ensures it is unmounted when closed, resetting all of the dialog state between renders. */}
+      {isEditLocationDialogOpen && <EditLocationDialog />}
     </div>
   );
 }
