@@ -23,7 +23,8 @@ export default function LocationMarker({ location }: LocationMarkerProperties) {
   const markerReference = useRef<MarkerType>(null);
 
   if (isLoading) {
-    return;
+    // eslint-disable-next-line unicorn/no-null
+    return null;
   }
 
   return (
