@@ -19,6 +19,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
 import { useEditLocationStore } from "@/hooks/use-edit-location-store";
 import {
@@ -27,10 +28,9 @@ import {
 } from "@/schema/location-form-data";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
-import { useActionState, useEffect } from "react";
+import { startTransition, useActionState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-import { ReactFormSwitch } from "./react-form-switch";
 
 const initialFormState: OnSubmitLocationState = {
   success: false,
@@ -85,13 +85,34 @@ export default function EditLocationDialog() {
     formState.message,
   ]);
 
+  // This is really dumb, but without it the boolean properties from the switches
+  // don't get passed as formData.
+  const handleSubmit = () => {
+    const values = form.getValues();
+    const formData = new FormData();
+
+    for (const [key, value] of Object.entries(values)) {
+      formData.append(key, String(value));
+    }
+
+    startTransition(() => {
+      formAction(formData);
+    });
+  };
+
   const isEditing = selectedLocation?.id !== undefined;
 
   return (
     <Dialog open={isOpen} onOpenChange={closeDialog}>
       <DialogContent>
         <Form {...form}>
-          <form action={formAction} aria-label="Location edit form">
+          <form
+            onSubmit={(event) => {
+              event.preventDefault();
+              handleSubmit();
+            }}
+            aria-label="Location edit form"
+          >
             <fieldset disabled={isPending} className="space-y-4">
               <DialogHeader>
                 <DialogTitle>
@@ -141,7 +162,11 @@ export default function EditLocationDialog() {
                       <FormLabel>Has toilet</FormLabel>
                     </div>
                     <FormControl>
-                      <ReactFormSwitch field={field} />
+                      <Switch
+                        id={field.name}
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
