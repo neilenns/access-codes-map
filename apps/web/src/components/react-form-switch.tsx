@@ -24,7 +24,7 @@ export function ReactFormSwitch({ field, children }: FormSwitchProperties) {
       <Switch
         checked={field.value}
         onCheckedChange={field.onChange}
-        aria-label={field.name}
+        id={field.name}
       />
       {children && <Label htmlFor={field.name}>{children}</Label>}
       <input
