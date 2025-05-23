@@ -73,16 +73,29 @@ export default function EditLocationDialog() {
 
     if (formState.success) {
       toast.success("Location saved successfully");
-    } else {
-      toast.error(formState.message);
+      closeDialog();
+    } else if (formState.errors) {
+      for (const [field, messages] of Object.entries(formState.errors)) {
+        if (field in form.getValues()) {
+          form.setError(field as keyof LocationFormData, {
+            type: "server",
+            message: messages.join(", "),
+          });
+        }
+      }
     }
 
-    closeDialog();
+    if (formState.message && !formState.errors) {
+      // Display general error messages if there are no specific field errors
+      toast.error(formState.message);
+    }
   }, [
     formState.success,
     closeDialog,
     formState.isSubmitted,
     formState.message,
+    formState.errors,
+    form,
   ]);
 
   // This is really dumb, but without it the boolean properties from the switches
