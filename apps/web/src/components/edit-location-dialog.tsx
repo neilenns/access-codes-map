@@ -76,10 +76,12 @@ export default function EditLocationDialog() {
       closeDialog();
     } else if (formState.errors) {
       for (const [field, messages] of Object.entries(formState.errors)) {
-        form.setError(field as keyof LocationFormData, {
-          type: "server",
-          message: messages.join(", "),
-        });
+        if (field in form.getValues()) {
+          form.setError(field as keyof LocationFormData, {
+            type: "server",
+            message: messages.join(", "),
+          });
+        }
       }
     }
 
