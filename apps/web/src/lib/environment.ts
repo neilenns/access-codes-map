@@ -11,7 +11,7 @@ const sharedFields = {
   AUTH0_CLIENT_SECRET: z.string().optional(),
   AUTH0_CLIENT_ID: z.string().optional(),
   AUTH0_DOMAIN: auth0url.optional(),
-  AUTH0_SECRET: z.string().optional(),
+  AUTH0_SECRET: z.string().optional(), // To generate this use `openssl rand -hex 32`
   CLOUDFLARE_ACCOUNT_ID: z.string().optional(),
   CLOUDFLARE_DATABASE_ID: z.string().optional(),
   CLOUDFLARE_D1_TOKEN: z.string().optional(),
