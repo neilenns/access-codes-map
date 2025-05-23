@@ -9,7 +9,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { ShieldAlert } from "lucide-react"; // Using a relevant icon
-import Link from "next/link";
 
 export default function UnauthorizedPage() {
   return (
@@ -31,16 +30,17 @@ export default function UnauthorizedPage() {
           <CardTitle id="unauthorized-title">Access denied</CardTitle>
           <CardDescription id="unauthorized-description">
             You do not have the necessary permissions to access this page.
+            Contact Neil if you believe this is a mistake.
           </CardDescription>
         </CardHeader>
         <CardFooter className="flex justify-center">
           <Button asChild>
-            <Link
-              href="/"
-              aria-label="Return to the homepage after being denied access"
+            <a
+              href="/auth/logout"
+              aria-label="Sign out after being denied access"
             >
-              Return to homepage
-            </Link>
+              Log out
+            </a>
           </Button>
         </CardFooter>
       </Card>
