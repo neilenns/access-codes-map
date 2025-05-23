@@ -11,6 +11,11 @@
   "dev": {
     "ip": "0.0.0.0", // Required to enable accessing the dev server from outside the devcontainer.
   },
+  "observability": {
+    "logs": {
+      "enabled": true,
+    },
+  },
   "env": {
     "dev": {
       "services": [
