@@ -18,10 +18,15 @@ export const getAuth0Client = () => {
     // Before saving the session, decode the access token to get the permissions
     // and add them to the session object. Also save the user to the database.
     async beforeSessionSaved(session, idToken) {
-      await addUser({
-        id: session.user.sub,
-        name: session.user.nickname ?? "Unnamed",
-      });
+      try {
+        await addUser({
+          id: session.user.sub,
+          name: session.user.nickname ?? "Unnamed",
+        });
+      } catch (error) {
+        console.error("Failed to save user to database:", error);
+        // Swallow the error so authentication still succeeds
+      }
 
       if (!idToken || !session.tokenSet.accessToken) {
         return session;
