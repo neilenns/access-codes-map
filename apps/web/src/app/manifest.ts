@@ -4,7 +4,7 @@ export default function manifest(): MetadataRoute.Manifest {
   return {
     background_color: "#ffffff",
     display: "standalone",
-    display_override: ["window-controls-overlay"],
+    display_override: ["window-controls-overlay", "standalone"],
     icons: [
       {
         sizes: "71x71",
