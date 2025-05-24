@@ -4,6 +4,7 @@ export default function manifest(): MetadataRoute.Manifest {
   return {
     background_color: "#ffffff",
     display: "standalone",
+    display_override: ["window-controls-overlay"],
     icons: [
       {
         sizes: "71x71",
@@ -461,10 +462,15 @@ export default function manifest(): MetadataRoute.Manifest {
     start_url: "/map",
     screenshots: [
       {
-        src: "screenshot.webp",
-        sizes: "1612x687",
+        src: "screenshot-wide.webp",
+        sizes: "1280x720",
         type: "image/webp",
         form_factor: "wide",
+      },
+      {
+        src: "screenshot-wide.webp",
+        sizes: "1280x720",
+        type: "image/webp",
       },
     ],
   };
