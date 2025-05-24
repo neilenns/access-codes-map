@@ -5,9 +5,12 @@ const environmentSchema = z
   .object({
     LOCAL_DB_PATH: z.string().optional(),
     APP_BASE_URL: z.string().url().optional(),
+    // The default here isn't strictly necessary, NextJS automatically sets NODE_ENV to development
+    // when running `next dev` and production when running all other `next` commands.
+    // See https://nextjs.org/docs/pages/guides/environment-variables#good-to-know.
     NODE_ENV: z
       .enum(["development", "production", "test"])
-      .default("development")
+      .default("production")
       .optional(),
     AUTH0_AUDIENCE: auth0url.optional(),
     AUTH0_CLIENT_SECRET: z.string().optional(),
