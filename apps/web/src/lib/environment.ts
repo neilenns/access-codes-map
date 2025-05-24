@@ -1,12 +1,18 @@
 import z from "zod";
 import { auth0url } from "./auth0-url";
 
-// Shared fields for both configurations
-const sharedFields = {
+// Schema when running Drizzle studio
+const drizzleStudioSchema = z.object({
+  LOCAL_DB_PATH: z.string(),
+});
+
+// Schema for all other situations
+const cloudflareSchema = z.object({
+  LOCAL_DB_PATH: z.undefined().optional(),
+  APP_BASE_URL: z.string().url(),
   NODE_ENV: z
     .enum(["development", "production", "test"])
     .default("development"),
-  APP_BASE_URL: z.string().url(),
   AUTH0_AUDIENCE: auth0url.optional(),
   AUTH0_CLIENT_SECRET: z.string().optional(),
   AUTH0_CLIENT_ID: z.string().optional(),
@@ -18,23 +24,16 @@ const sharedFields = {
   DISABLE_AUTH: z
     .preprocess((value) => value === "true" || value === "1", z.boolean())
     .default(false),
-};
-
-// Local DB config
-const localDatabaseSchema = z.object({
-  LOCAL_DB_PATH: z.string(),
-  ...sharedFields,
-});
-
-// Cloudflare D1 config
-const cloudflareSchema = z.object({
-  LOCAL_DB_PATH: z.undefined().optional(),
-  ...sharedFields,
 });
 
 const environmentSchema = z
-  .union([localDatabaseSchema, cloudflareSchema])
+  .union([drizzleStudioSchema, cloudflareSchema])
   .superRefine((environment, context) => {
+    // This is when drizzle studio runs, and the rest of the stuff doesn't matter.
+    if ("LOCAL_DB_PATH" in environment) {
+      return;
+    }
+
     if (environment.DISABLE_AUTH && environment.NODE_ENV === "production") {
       context.addIssue({
         path: ["DISABLE_AUTH"],
@@ -73,5 +72,8 @@ if (!result.success) {
 export const ENV = {
   ...result.data,
   AUTH_DISABLED:
-    result.data.DISABLE_AUTH && result.data.NODE_ENV === "development",
+    "DISABLE_AUTH" in result.data &&
+    "NODE_ENV" in result.data &&
+    result.data.DISABLE_AUTH &&
+    result.data.NODE_ENV === "development",
 };
