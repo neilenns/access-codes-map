@@ -39,6 +39,10 @@ const environmentSchema = z
       });
     }
 
+    if (environment.DISABLE_AUTH && environment.NODE_ENV === "development") {
+      console.warn("DISABLE_AUTH is true, authentication is disabled.");
+    }
+
     // Check for required keys in production.
     const requiredCloudflareKeys = [
       "APP_BASE_URL",
