@@ -15,6 +15,11 @@
         "CLOUDFLARE_D1_TOKEN",
         "CLOUDFLARE_DATABASE_ID"
       ]
+    },
+    "dev": {
+      "env": [
+        "NEXT_PUBLIC_DISABLE_AUTH"
+      ]
     }
   }
 }

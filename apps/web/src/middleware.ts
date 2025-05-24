@@ -21,7 +21,6 @@ export async function middleware(request: NextRequest) {
 
   // Check for disabled authentication in development environment.
   if (authDisabled) {
-    console.warn("DISABLE_AUTH is true, authentication is disabled.");
     return NextResponse.next();
   }
 
