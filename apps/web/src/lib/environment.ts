@@ -1,36 +1,30 @@
 import z from "zod";
 import { auth0url } from "./auth0-url";
 
-// Schema when running Drizzle studio
-const drizzleStudioSchema = z.object({
-  LOCAL_DB_PATH: z.string(),
-});
-
-// Schema for all other situations
-const cloudflareSchema = z.object({
-  LOCAL_DB_PATH: z.undefined().optional(),
-  APP_BASE_URL: z.string().url(),
-  NODE_ENV: z
-    .enum(["development", "production", "test"])
-    .default("development"),
-  AUTH0_AUDIENCE: auth0url.optional(),
-  AUTH0_CLIENT_SECRET: z.string().optional(),
-  AUTH0_CLIENT_ID: z.string().optional(),
-  AUTH0_DOMAIN: auth0url.optional(),
-  AUTH0_SECRET: z.string().optional(), // To generate this use `openssl rand -hex 32`
-  CLOUDFLARE_ACCOUNT_ID: z.string().optional(),
-  CLOUDFLARE_DATABASE_ID: z.string().optional(),
-  CLOUDFLARE_D1_TOKEN: z.string().optional(),
-  DISABLE_AUTH: z
-    .preprocess((value) => value === "true" || value === "1", z.boolean())
-    .default(false),
-});
-
 const environmentSchema = z
-  .union([drizzleStudioSchema, cloudflareSchema])
+  .object({
+    LOCAL_DB_PATH: z.string().optional(),
+    APP_BASE_URL: z.string().url().optional(),
+    NODE_ENV: z
+      .enum(["development", "production", "test"])
+      .default("development")
+      .optional(),
+    AUTH0_AUDIENCE: auth0url.optional(),
+    AUTH0_CLIENT_SECRET: z.string().optional(),
+    AUTH0_CLIENT_ID: z.string().optional(),
+    AUTH0_DOMAIN: auth0url.optional(),
+    AUTH0_SECRET: z.string().optional(), // To generate this use `openssl rand -hex 32`
+    CLOUDFLARE_ACCOUNT_ID: z.string().optional(),
+    CLOUDFLARE_DATABASE_ID: z.string().optional(),
+    CLOUDFLARE_D1_TOKEN: z.string().optional(),
+    DISABLE_AUTH: z
+      .preprocess((value) => value === "true" || value === "1", z.boolean())
+      .default(false)
+      .optional(),
+  })
   .superRefine((environment, context) => {
-    // This is when drizzle studio runs, and the rest of the stuff doesn't matter.
-    if ("LOCAL_DB_PATH" in environment) {
+    if (environment.LOCAL_DB_PATH) {
+      // If LOCAL_DB_PATH is set, nothing else matters
       return;
     }
 
@@ -38,24 +32,31 @@ const environmentSchema = z
       context.addIssue({
         path: ["DISABLE_AUTH"],
         code: z.ZodIssueCode.custom,
-        message: "DISABLE_AUTH cannot be true in production environment",
+        message: "DISABLE_AUTH cannot be true in production environment.",
       });
     }
 
-    if (!environment.DISABLE_AUTH) {
-      for (const key of [
-        "AUTH0_DOMAIN",
-        "AUTH0_AUDIENCE",
-        "AUTH0_CLIENT_ID",
-        "AUTH0_CLIENT_SECRET",
-        "AUTH0_SECRET",
-      ] as const) {
-        // eslint-disable-next-line security/detect-object-injection
-        if (!environment[key]) {
+    // Check for required keys in production.
+    const requiredCloudflareKeys = [
+      "APP_BASE_URL",
+      "CLOUDFLARE_ACCOUNT_ID",
+      "CLOUDFLARE_DATABASE_ID",
+      "CLOUDFLARE_D1_TOKEN",
+      "AUTH0_DOMAIN",
+      "AUTH0_AUDIENCE",
+      "AUTH0_CLIENT_ID",
+      "AUTH0_CLIENT_SECRET",
+      "AUTH0_SECRET",
+    ];
+
+    if (environment.NODE_ENV === "production") {
+      for (const key of requiredCloudflareKeys) {
+        const value = environment[key as keyof typeof environment];
+        if (value === undefined || value === "") {
           context.addIssue({
             path: [key],
             code: z.ZodIssueCode.custom,
-            message: `${key} is required when DISABLE_AUTH is false`,
+            message: `${key} is required in production deployments.`,
           });
         }
       }
@@ -72,8 +73,5 @@ if (!result.success) {
 export const ENV = {
   ...result.data,
   AUTH_DISABLED:
-    "DISABLE_AUTH" in result.data &&
-    "NODE_ENV" in result.data &&
-    result.data.DISABLE_AUTH &&
-    result.data.NODE_ENV === "development",
+    result.data.DISABLE_AUTH && result.data.NODE_ENV === "development",
 };
