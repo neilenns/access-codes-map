@@ -2,14 +2,7 @@ import { OnSubmitLocationState } from "@/api/location-utilities";
 import { handleUpdateLocation } from "@/api/update-location";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
+import { DialogFooter } from "@/components/ui/dialog";
 import {
   Form,
   FormControl,
@@ -31,6 +24,13 @@ import { Loader2 } from "lucide-react";
 import { startTransition, useActionState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
+import {
+  ResponsiveModal,
+  ResponsiveModalContent,
+  ResponsiveModalDescription,
+  ResponsiveModalHeader,
+  ResponsiveModalTitle,
+} from "./responsive-modal";
 
 const initialFormState: OnSubmitLocationState = {
   success: false,
@@ -116,8 +116,8 @@ export default function EditLocationDialog() {
   const isEditing = selectedLocation?.id !== undefined;
 
   return (
-    <Dialog open={isOpen} onOpenChange={closeDialog}>
-      <DialogContent>
+    <ResponsiveModal open={isOpen} onOpenChange={closeDialog}>
+      <ResponsiveModalContent side="top">
         <Form {...form}>
           <form
             onSubmit={(event) => {
@@ -127,16 +127,16 @@ export default function EditLocationDialog() {
             aria-label="Location edit form"
           >
             <fieldset disabled={isPending} className="space-y-4">
-              <DialogHeader>
-                <DialogTitle>
+              <ResponsiveModalHeader>
+                <ResponsiveModalTitle>
                   {isEditing ? "Edit location" : "Add location"}
-                </DialogTitle>
-                <DialogDescription>
+                </ResponsiveModalTitle>
+                <ResponsiveModalDescription>
                   {isEditing
                     ? "Update the details for this location."
                     : "Enter the details for this location."}
-                </DialogDescription>
-              </DialogHeader>
+                </ResponsiveModalDescription>
+              </ResponsiveModalHeader>
               <input type="hidden" {...form.register("id")} />
               <input type="hidden" {...form.register("latitude")} />
               <input type="hidden" {...form.register("longitude")} />
@@ -222,7 +222,7 @@ export default function EditLocationDialog() {
             </fieldset>
           </form>
         </Form>
-      </DialogContent>
-    </Dialog>
+      </ResponsiveModalContent>
+    </ResponsiveModal>
   );
 }
