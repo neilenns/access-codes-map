@@ -62,7 +62,11 @@ export const incrementViews = async (id: number) => {
       throw new Error(`Location with ID ${id.toString()} not found`);
     }
 
+    console.log("Current views:", location.views);
+
     const updatedViews = (location.views || 0) + 1;
+
+    console.log("Updated views:", updatedViews);
 
     // Update the database with the new value
     return await database
