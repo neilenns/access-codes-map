@@ -52,30 +52,10 @@ export const incrementViews = async (id: number) => {
   try {
     const database = await getDatabaseAsync();
 
-    // Fetch the current value of views
-    const location = await database.query.locations.findFirst({
-      where: eq(locations.id, id),
-      columns: { views: true },
-    });
-
-    if (!location) {
-      throw new Error(`Location with ID ${id.toString()} not found`);
-    }
-
-    console.log("Current views:", location.views);
-
-    const updatedViews = (location.views || 0) + 1;
-
-    console.log("Updated views:", updatedViews);
-
     // Update the database with the new value
-    return await database
-      .update(locations)
-      .set({
-        views: updatedViews,
-        lastViewed: sql`(CURRENT_TIMESTAMP)`,
-      })
-      .where(eq(locations.id, id));
+    return await database.run(sql`UPDATE locations
+          SET views = views + 1, lastViewed = CURRENT_TIMESTAMP
+          WHERE id = ${id}`);
   } catch (error) {
     console.error("Error incrementing views for location:", error);
     throw error;
