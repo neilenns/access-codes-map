@@ -81,8 +81,9 @@ export default function MarkerLayer({ locations }: MarkerLayerProperties) {
   useMapEvent("popupopen", (event) => {
     const source = (event.popup as PopupWithSource)._source;
 
-    console.log("Incrementing views for location:", source.options.markerId);
-    void handleIncrementViews(source.options.markerId);
+    handleIncrementViews(source.options.markerId).catch((error: unknown) => {
+      console.error("Failed to increment views:", error);
+    });
   });
 
   return (
