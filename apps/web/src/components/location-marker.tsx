@@ -5,7 +5,7 @@ import { useEditLocationStore } from "@/hooks/use-edit-location-store"; // Added
 import { Permissions } from "@/types/permissions";
 import type { Marker as MarkerType } from "leaflet";
 import { EditIcon, TrashIcon } from "lucide-react";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { Marker, Popup } from "react-leaflet";
 import { BlueMarker, YellowMarker } from "./custom-markers";
 import { Button } from "./ui/button";
@@ -26,13 +26,6 @@ export default function LocationMarker({ location }: LocationMarkerProperties) {
 
   const markerReference = useRef<MarkerTypeWithLocationId>(null);
 
-  // Attach locationId to the marker instance after mount
-  useEffect(() => {
-    if (markerReference.current) {
-      markerReference.current.options.locationId = location.id;
-    }
-  }, [location.id]);
-
   if (isLoading) {
     // eslint-disable-next-line unicorn/no-null
     return null;
@@ -40,6 +33,7 @@ export default function LocationMarker({ location }: LocationMarkerProperties) {
 
   return (
     <Marker
+      markerId={location.id}
       ref={markerReference}
       position={[location.latitude, location.longitude]}
       icon={location.hasToilet ? YellowMarker : BlueMarker}

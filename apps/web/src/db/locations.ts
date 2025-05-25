@@ -53,9 +53,13 @@ export const incrementViews = async (id: number) => {
     const database = await getDatabaseAsync();
 
     // Update the database with the new value
-    return await database.run(sql`UPDATE locations
-          SET views = views + 1, lastViewed = CURRENT_TIMESTAMP
-          WHERE id = ${id}`);
+    return await database
+      .update(locations)
+      .set({
+        views: sql`${locations.views} + 1`,
+        lastViewed: sql`(CURRENT_TIMESTAMP)`,
+      })
+      .where(eq(locations.id, id));
   } catch (error) {
     console.error("Error incrementing views for location:", error);
     throw error;

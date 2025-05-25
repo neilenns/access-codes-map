@@ -2,16 +2,21 @@ import { handleIncrementViews } from "@/api/increment-views";
 import { LocationWithUsers } from "@/db/locations";
 import { useEditLocationStore } from "@/hooks/use-edit-location-store";
 import NominatimReverseResponse from "@/types/nominatim-reverse-response";
-import { LatLng, LeafletMouseEvent, Popup } from "leaflet";
+import {
+  LatLng,
+  Marker as LeafletMarker,
+  LeafletMouseEvent,
+  Popup,
+} from "leaflet";
 import { useMapEvent } from "react-leaflet";
-import LocationMarker, { MarkerTypeWithLocationId } from "./location-marker";
+import LocationMarker from "./location-marker";
 
 export interface MarkerLayerProperties {
   locations: LocationWithUsers[];
 }
 
 interface PopupWithSource extends Popup {
-  _source: MarkerTypeWithLocationId;
+  _source: LeafletMarker;
 }
 
 /**
@@ -76,8 +81,8 @@ export default function MarkerLayer({ locations }: MarkerLayerProperties) {
   useMapEvent("popupopen", (event) => {
     const source = (event.popup as PopupWithSource)._source;
 
-    console.log("Incrementing views for location:", source.options.locationId);
-    void handleIncrementViews(source.options.locationId);
+    console.log("Incrementing views for location:", source.options.markerId);
+    void handleIncrementViews(source.options.markerId);
   });
 
   return (
