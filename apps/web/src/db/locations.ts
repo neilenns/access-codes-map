@@ -54,7 +54,7 @@ export const incrementViews = async (id: number) => {
     return await database
       .update(locations)
       .set({
-        views: sql`${locations.views} + 1`,
+        views: sql`COALESCE(${locations.views}, 0) + 1`,
         lastViewed: sql`(CURRENT_TIMESTAMP)`,
       })
       .where(eq(locations.id, id));
