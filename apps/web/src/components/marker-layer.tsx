@@ -76,6 +76,7 @@ export default function MarkerLayer({ locations }: MarkerLayerProperties) {
   useMapEvent("popupopen", (event) => {
     const source = (event.popup as PopupWithSource)._source;
 
+    console.log("Incrementing views for location:", source.options.locationId);
     void handleIncrementViews(source.options.locationId);
   });
 
