@@ -51,10 +51,25 @@ export const addLocation = async (data: LocationFormData) => {
 export const incrementViews = async (id: number) => {
   try {
     const database = await getDatabaseAsync();
+
+    // Fetch the current value of views
+    const location = await database.query.locations.findFirst({
+      where: eq(locations.id, id),
+      columns: { views: true },
+    });
+
+    if (!location) {
+      throw new Error(`Location with ID ${id.toString()} not found`);
+    }
+
+    // Increment the views in JavaScript
+    const updatedViews = (location.views || 0) + 1;
+
+    // Update the database with the new value
     return await database
       .update(locations)
       .set({
-        views: sql`COALESCE(${locations.views}, 0) + 1`,
+        views: updatedViews,
         lastViewed: sql`(CURRENT_TIMESTAMP)`,
       })
       .where(eq(locations.id, id));
