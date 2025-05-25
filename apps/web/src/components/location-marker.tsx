@@ -5,12 +5,16 @@ import { useEditLocationStore } from "@/hooks/use-edit-location-store"; // Added
 import { Permissions } from "@/types/permissions";
 import type { Marker as MarkerType } from "leaflet";
 import { EditIcon, TrashIcon } from "lucide-react";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { Marker, Popup } from "react-leaflet";
 import { BlueMarker, YellowMarker } from "./custom-markers";
 import { Button } from "./ui/button";
 export interface LocationMarkerProperties {
   location: LocationWithUsers;
+}
+
+export interface MarkerTypeWithLocationId extends MarkerType {
+  options: MarkerType["options"] & { locationId: number };
 }
 
 export default function LocationMarker({ location }: LocationMarkerProperties) {
@@ -20,7 +24,14 @@ export default function LocationMarker({ location }: LocationMarkerProperties) {
     Permissions.EditCodes,
   );
 
-  const markerReference = useRef<MarkerType>(null);
+  const markerReference = useRef<MarkerTypeWithLocationId>(null);
+
+  // Attach locationId to the marker instance after mount
+  useEffect(() => {
+    if (markerReference.current) {
+      markerReference.current.options.locationId = location.id;
+    }
+  }, [location.id]);
 
   if (isLoading) {
     // eslint-disable-next-line unicorn/no-null
@@ -33,7 +44,7 @@ export default function LocationMarker({ location }: LocationMarkerProperties) {
       position={[location.latitude, location.longitude]}
       icon={location.hasToilet ? YellowMarker : BlueMarker}
     >
-      <Popup>
+      <Popup key={location.id}>
         <div className="p-0">
           <h2 id="marker-title" className="text-lg font-semibold">
             {location.title}
@@ -41,7 +52,7 @@ export default function LocationMarker({ location }: LocationMarkerProperties) {
           <p className="text-sm whitespace-pre-line">{location.note}</p>
           <p className="text-xs italic text-gray-500">
             Last modified by {location.modifiedBy?.name ?? "unknown"} on{" "}
-            {new Date(location.lastModified).toISOString().split("T")[0]}
+            {new Date(location.lastModified).toISOString().split("T")[0]}.
           </p>
           <div className="flex justify-center mt-4 space-x-2">
             {permissionsStatus[Permissions.EditCodes] && (

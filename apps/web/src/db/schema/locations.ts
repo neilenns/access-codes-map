@@ -25,6 +25,8 @@ export const locations = sqliteTable(
     lastModified: text()
       .notNull()
       .default(sql`(CURRENT_TIMESTAMP)`),
+    views: integer().notNull().default(0),
+    lastViewed: text(),
   },
   (table) => [
     index("createdById_idx").on(table.createdById),

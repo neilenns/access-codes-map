@@ -5,6 +5,7 @@ export default ENV.LOCAL_DB_PATH
   ? defineConfig({
       schema: "./src/db/schema/schema.ts",
       dialect: "sqlite",
+      out: "./drizzle/migrations",
       dbCredentials: {
         url: `./${ENV.LOCAL_DB_PATH}`,
       },
