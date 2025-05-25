@@ -1,8 +1,15 @@
 import { OnSubmitLocationState } from "@/api/location-utilities";
 import { handleUpdateLocation } from "@/api/update-location";
+import {
+  ResponsiveModal,
+  ResponsiveModalContent,
+  ResponsiveModalDescription,
+  ResponsiveModalFooter,
+  ResponsiveModalHeader,
+  ResponsiveModalTitle,
+} from "@/components/responsive-modal";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
-import { DialogFooter } from "@/components/ui/dialog";
 import {
   Form,
   FormControl,
@@ -24,13 +31,6 @@ import { Loader2 } from "lucide-react";
 import { startTransition, useActionState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-import {
-  ResponsiveModal,
-  ResponsiveModalContent,
-  ResponsiveModalDescription,
-  ResponsiveModalHeader,
-  ResponsiveModalTitle,
-} from "./responsive-modal";
 
 const initialFormState: OnSubmitLocationState = {
   success: false,
@@ -191,7 +191,7 @@ export default function EditLocationDialog() {
                   <AlertDescription>{formState.message}</AlertDescription>
                 </Alert>
               )}
-              <DialogFooter>
+              <ResponsiveModalFooter>
                 <div className="flex space-x-2">
                   <Button
                     variant="secondary"
@@ -218,7 +218,7 @@ export default function EditLocationDialog() {
                     </Button>
                   )}
                 </div>
-              </DialogFooter>
+              </ResponsiveModalFooter>
             </fieldset>
           </form>
         </Form>
