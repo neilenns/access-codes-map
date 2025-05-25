@@ -13,6 +13,10 @@ export interface LocationMarkerProperties {
   location: LocationWithUsers;
 }
 
+export interface MarkerTypeWithLocationId extends MarkerType {
+  options: MarkerType["options"] & { locationId: number };
+}
+
 export default function LocationMarker({ location }: LocationMarkerProperties) {
   const { openDialog } = useEditLocationStore();
   const { openDeleteDialog } = useDeleteLocationStore();
@@ -20,7 +24,7 @@ export default function LocationMarker({ location }: LocationMarkerProperties) {
     Permissions.EditCodes,
   );
 
-  const markerReference = useRef<MarkerType>(null);
+  const markerReference = useRef<MarkerTypeWithLocationId>(null);
 
   if (isLoading) {
     // eslint-disable-next-line unicorn/no-null
@@ -29,11 +33,12 @@ export default function LocationMarker({ location }: LocationMarkerProperties) {
 
   return (
     <Marker
+      markerId={location.id}
       ref={markerReference}
       position={[location.latitude, location.longitude]}
       icon={location.hasToilet ? YellowMarker : BlueMarker}
     >
-      <Popup>
+      <Popup key={location.id}>
         <div className="p-0">
           <h2 id="marker-title" className="text-lg font-semibold">
             {location.title}
@@ -41,7 +46,7 @@ export default function LocationMarker({ location }: LocationMarkerProperties) {
           <p className="text-sm whitespace-pre-line">{location.note}</p>
           <p className="text-xs italic text-gray-500">
             Last modified by {location.modifiedBy?.name ?? "unknown"} on{" "}
-            {new Date(location.lastModified).toISOString().split("T")[0]}
+            {new Date(location.lastModified).toISOString().split("T")[0]}.
           </p>
           <div className="flex justify-center mt-4 space-x-2">
             {permissionsStatus[Permissions.EditCodes] && (

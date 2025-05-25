@@ -48,6 +48,24 @@ export const addLocation = async (data: LocationFormData) => {
   }
 };
 
+export const incrementViews = async (id: number) => {
+  try {
+    const database = await getDatabaseAsync();
+
+    // Update the database with the new value
+    return await database
+      .update(locations)
+      .set({
+        views: sql`${locations.views} + 1`,
+        lastViewed: sql`(CURRENT_TIMESTAMP)`,
+      })
+      .where(eq(locations.id, id));
+  } catch (error) {
+    console.error("Error incrementing views for location:", error);
+    throw error;
+  }
+};
+
 export const updateLocation = async (data: LocationFormData) => {
   if (!data.id) {
     throw new Error("Location ID is required for update");
