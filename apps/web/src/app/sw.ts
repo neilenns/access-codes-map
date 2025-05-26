@@ -1,6 +1,6 @@
 import { defaultCache } from "@serwist/next/worker";
 import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
-import { Serwist } from "serwist";
+import { Serwist, StaleWhileRevalidate } from "serwist";
 
 // This declares the value of `injectionPoint` to TypeScript.
 // `injectionPoint` is the string that will be replaced by the
@@ -21,5 +21,23 @@ const serwist = new Serwist({
   navigationPreload: true,
   runtimeCaching: defaultCache,
 });
+
+serwist.registerCapture(
+  ({ url }) => {
+    return url.hostname.includes("openstreetmap.org");
+  },
+  new StaleWhileRevalidate({
+    cacheName: "openstreetmap",
+  }),
+);
+
+serwist.registerCapture(
+  ({ url, sameOrigin }) => {
+    return sameOrigin && url.pathname.startsWith("/map");
+  },
+  new StaleWhileRevalidate({
+    cacheName: "map",
+  }),
+);
 
 serwist.addEventListeners();
