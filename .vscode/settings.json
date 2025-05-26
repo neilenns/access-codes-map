@@ -17,6 +17,7 @@
     "locateactivate",
     "locatecontrol",
     "locatedeactivate",
+    "markercluster",
     "miniflare",
     "neighbourhood",
     "nextjs",
