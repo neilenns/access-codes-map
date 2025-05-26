@@ -56,14 +56,14 @@ export default function LocationsMap({ locations }: MapProperties) {
             <TileLayer
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-              crossOrigin="anonymous"
+              crossOrigin={true}
             />
           </LayersControl.BaseLayer>
           <LayersControl.BaseLayer name="Satellite">
             <TileLayer
               attribution='Tiles courtesy of the <a href="https://usgs.gov/">U.S. Geological Survey</a>'
               url="https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryOnly/MapServer/tile/{z}/{y}/{x}"
-              crossOrigin="anonymous"
+              crossOrigin={true}
             />
           </LayersControl.BaseLayer>
         </LayersControl>
