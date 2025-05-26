@@ -79,6 +79,12 @@ export default function MarkerLayer({ locations }: MarkerLayerProperties) {
   });
 
   useMapEvent("popupopen", (event) => {
+    // Don't bother trying to save the view if the device is offline. This prevents
+    // fetch errors in the console.
+    if (!navigator.onLine) {
+      return;
+    }
+
     const source = (event.popup as PopupWithSource)._source;
 
     handleIncrementViews(source.options.markerId).catch((error: unknown) => {
