@@ -50,7 +50,3 @@ next-env.d.ts
 
 # Certificates
 **/certs
-
-# Service worker files
-public/sw*
-public/swe-worker*
