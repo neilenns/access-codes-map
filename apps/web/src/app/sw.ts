@@ -26,14 +26,19 @@ const serwist = new Serwist({
       matcher: ({ url }) => {
         return url.pathname.startsWith("/map");
       },
-      handler: new NetworkFirst(),
+      handler: new NetworkFirst({
+        cacheName: "map-data",
+        networkTimeoutSeconds: 5, // Fallback to cache if network is slow
+      }),
     },
     {
       // Prefer local data for openstreetmap tiles.
       matcher: ({ url }) => {
         return url.hostname.includes("openstreetmap.org");
       },
-      handler: new StaleWhileRevalidate(),
+      handler: new StaleWhileRevalidate({
+        cacheName: "openstreetmap-tiles",
+      }),
     },
   ],
 });
