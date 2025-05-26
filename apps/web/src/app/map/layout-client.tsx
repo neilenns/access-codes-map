@@ -5,6 +5,7 @@ import { useCheckPermissions } from "@/hooks/use-check-permissions";
 import { Permissions } from "@/types/permissions";
 import "leaflet/dist/leaflet.css";
 import React from "react";
+import "react-leaflet-markercluster/styles";
 import UnauthorizedPage from "./unauthorized";
 
 export default function LayoutClient({

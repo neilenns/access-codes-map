@@ -10,6 +10,7 @@ import {
   Popup,
 } from "leaflet";
 import { useMapEvent } from "react-leaflet";
+import MarkerClusterGroup from "react-leaflet-markercluster";
 import LocationMarker from "./location-marker";
 
 export interface MarkerLayerProperties {
@@ -95,10 +96,10 @@ export default function MarkerLayer({ locations }: MarkerLayerProperties) {
   });
 
   return (
-    <>
+    <MarkerClusterGroup>
       {locations.map((location) => (
         <LocationMarker key={location.id} location={location} />
       ))}
-    </>
+    </MarkerClusterGroup>
   );
 }
