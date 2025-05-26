@@ -1,6 +1,7 @@
 import { handleIncrementViews } from "@/api/increment-views";
 import { LocationWithUsers } from "@/db/locations";
 import { useEditLocationStore } from "@/hooks/use-edit-location-store";
+import { useOnlineStatus } from "@/hooks/use-online-status";
 import NominatimReverseResponse from "@/types/nominatim-reverse-response";
 import {
   LatLng,
@@ -51,6 +52,7 @@ async function reverseGeocode(
 
 export default function MarkerLayer({ locations }: MarkerLayerProperties) {
   const { openDialog } = useEditLocationStore();
+  const isOnline = useOnlineStatus();
 
   // Adds a marker to the map when the user clicks on the map.
   const handleContextMenu = async (event: LeafletMouseEvent) => {
@@ -79,6 +81,12 @@ export default function MarkerLayer({ locations }: MarkerLayerProperties) {
   });
 
   useMapEvent("popupopen", (event) => {
+    // Don't bother trying to save the view if the device is offline. This prevents
+    // fetch errors in the console.
+    if (!isOnline) {
+      return;
+    }
+
     const source = (event.popup as PopupWithSource)._source;
 
     handleIncrementViews(source.options.markerId).catch((error: unknown) => {

@@ -23,9 +23,11 @@
     "Nominatim",
     "nvmrc",
     "opennextjs",
+    "openstreetmap",
     "pnpx",
     "popupopen",
     "serviceworker",
+    "serwist",
     "shadcn",
     "sonner",
     "Turborepo"
