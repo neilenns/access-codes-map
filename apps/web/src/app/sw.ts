@@ -24,19 +24,10 @@ const serwist = new Serwist({
 
 serwist.registerCapture(
   ({ url }) => {
-    return url.hostname.includes("openstreetmap.org");
+    return url.hostname.endsWith("openstreetmap.org");
   },
   new StaleWhileRevalidate({
     cacheName: "openstreetmap",
-  }),
-);
-
-serwist.registerCapture(
-  ({ url, sameOrigin }) => {
-    return sameOrigin && url.pathname.startsWith("/map");
-  },
-  new StaleWhileRevalidate({
-    cacheName: "map",
   }),
 );
 
