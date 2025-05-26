@@ -22,8 +22,8 @@ const serwist = new Serwist({
   runtimeCaching: [
     ...defaultCache,
     {
+      // The map should always try and fetch the latest data first.
       matcher: ({ url }) => {
-        // This matcher will cache all requests to the `/api/` path.
         return url.pathname.startsWith("/map");
       },
       handler: new NetworkFirst(),
