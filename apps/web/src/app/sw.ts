@@ -1,6 +1,6 @@
 import { defaultCache } from "@serwist/next/worker";
 import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
-import { NetworkFirst, Serwist, StaleWhileRevalidate } from "serwist";
+import { Serwist } from "serwist";
 
 // This declares the value of `injectionPoint` to TypeScript.
 // `injectionPoint` is the string that will be replaced by the
@@ -19,28 +19,7 @@ const serwist = new Serwist({
   skipWaiting: true,
   clientsClaim: true,
   navigationPreload: true,
-  runtimeCaching: [
-    ...defaultCache,
-    {
-      // The map should always try and fetch the latest data first.
-      matcher: ({ url }) => {
-        return url.pathname.startsWith("/map");
-      },
-      handler: new NetworkFirst({
-        cacheName: "map-data",
-        networkTimeoutSeconds: 5, // Fallback to cache if network is slow
-      }),
-    },
-    {
-      // Prefer local data for openstreetmap tiles.
-      matcher: ({ url }) => {
-        return url.hostname.includes("openstreetmap.org");
-      },
-      handler: new StaleWhileRevalidate({
-        cacheName: "openstreetmap-tiles",
-      }),
-    },
-  ],
+  runtimeCaching: defaultCache,
 });
 
 serwist.addEventListeners();
