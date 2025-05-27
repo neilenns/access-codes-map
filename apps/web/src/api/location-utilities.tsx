@@ -5,7 +5,7 @@ import {
 
 export interface OnSubmitLocationState {
   success: boolean;
-  message: string;
+  message?: string;
   fields?: Record<string, string>;
   errors?: Record<string, string[]>;
   isSubmitted: boolean;
