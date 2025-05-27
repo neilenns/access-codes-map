@@ -72,7 +72,7 @@ export default function EditLocationDialog() {
     }
 
     if (formState.success) {
-      toast.success("Location saved successfully");
+      toast.success(formState.message);
       closeDialog();
     } else if (formState.errors) {
       for (const [field, messages] of Object.entries(formState.errors)) {
@@ -85,7 +85,7 @@ export default function EditLocationDialog() {
       }
     }
 
-    if (formState.message && !formState.errors) {
+    if (formState.message && !formState.errors && !formState.success) {
       // Display general error messages if there are no specific field errors
       toast.error(formState.message);
     }

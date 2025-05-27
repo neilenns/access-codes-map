@@ -57,5 +57,6 @@ export const handleUpdateLocation = async (
   return {
     success: true,
     isSubmitted: true,
+    message: `Location ${parsed.data.id ? "updated" : "created"} successfully`,
   };
 };
