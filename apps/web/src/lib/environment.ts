@@ -44,7 +44,13 @@ const environmentSchema = z
     }
 
     // Check for required keys in production.
-    const requiredCloudflareKeys = [
+    // This is horrible. Commenting out because of a stupid nextjs issue
+    // where there is *no way* to prevent route handlers from being evaluated
+    // at build time. That will fail because the environment variables are not set
+    // at build time, even if they are set at runtime.
+    // Commenting out for now. NextJS issue:
+    // https://github.com/vercel/next.js/issues/65531
+    /*    const requiredCloudflareKeys = [
       "APP_BASE_URL",
       "CLOUDFLARE_ACCOUNT_ID",
       "CLOUDFLARE_DATABASE_ID",
@@ -68,6 +74,7 @@ const environmentSchema = z
         }
       }
     }
+      */
   });
 
 const result = environmentSchema.safeParse(process.env);

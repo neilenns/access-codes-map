@@ -2,8 +2,6 @@ import { incrementViews } from "@/db/locations";
 import { getAuth0Client } from "@/lib/auth0";
 import { NextRequest } from "next/server";
 
-export const dynamic = "force-dynamic";
-
 interface IncrementViewsPayload {
   markerId: number;
 }
