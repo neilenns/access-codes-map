@@ -1,3 +1,4 @@
+import isCI from "is-ci";
 import z from "zod";
 import { auth0url } from "./auth0-url";
 
@@ -44,13 +45,7 @@ const environmentSchema = z
     }
 
     // Check for required keys in production.
-    // This is horrible. Commenting out because of a stupid nextjs issue
-    // where there is *no way* to prevent route handlers from being evaluated
-    // at build time. That will fail because the environment variables are not set
-    // at build time, even if they are set at runtime.
-    // Commenting out for now. NextJS issue:
-    // https://github.com/vercel/next.js/issues/65531
-    /*    const requiredCloudflareKeys = [
+    const requiredCloudflareKeys = [
       "APP_BASE_URL",
       "CLOUDFLARE_ACCOUNT_ID",
       "CLOUDFLARE_DATABASE_ID",
@@ -62,7 +57,15 @@ const environmentSchema = z
       "AUTH0_SECRET",
     ];
 
-    if (environment.NODE_ENV === "production") {
+    // If running in CI, skip the checks for CloudFlare and Auth0 variables.
+    // NextJS issue: https://github.com/vercel/next.js/issues/65531
+    if (isCI) {
+      console.log(
+        "Running in CI, skipping environment variable checks for CloudFlare and Auth0 variables.",
+      );
+    }
+
+    if (environment.NODE_ENV === "production" && !isCI) {
       for (const key of requiredCloudflareKeys) {
         const value = environment[key as keyof typeof environment];
         if (value === undefined || value === "") {
@@ -74,7 +77,6 @@ const environmentSchema = z
         }
       }
     }
-      */
   });
 
 const result = environmentSchema.safeParse(process.env);

@@ -89,6 +89,9 @@ importers:
       drizzle-orm:
         specifier: ^0.43.1
         version: 0.43.1(better-sqlite3@11.10.0)
+      is-ci:
+        specifier: ^4.1.0
+        version: 4.1.0
       jwt-decode:
         specifier: ^4.0.0
         version: 4.0.0
@@ -3717,6 +3720,10 @@ packages:
   is-callable@1.2.7:
     resolution: {integrity: sha512-1BC0BVFhS/p0qtw6enp8e+8OD0UrK0oFLztSjNzhcKA3WDuJxxAPXzPuPtKkjEY9UUoEWlX/8fgKeu2S8i9JTA==}
     engines: {node: '>= 0.4'}
+
+  is-ci@4.1.0:
+    resolution: {integrity: sha512-Ab9bQDQ11lWootZUI5qxgN2ZXwxNI5hTwnsvOc1wyxQ7zQ8OkEDw79mI0+9jI3x432NfwbVRru+3noJfXF6lSQ==}
+    hasBin: true
 
   is-core-module@2.16.1:
     resolution: {integrity: sha512-UfoeMA6fIJ8wTYFEUjelnaGI67v6+N7qXJEvQuIGa99l4xsCruSYOVSQ0uPANn4dAzm8lkYPaKLrrijLq7x23w==}
@@ -9854,6 +9861,10 @@ snapshots:
       semver: 7.7.2
 
   is-callable@1.2.7: {}
+
+  is-ci@4.1.0:
+    dependencies:
+      ci-info: 4.2.0
 
   is-core-module@2.16.1:
     dependencies:
