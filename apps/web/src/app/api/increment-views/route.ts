@@ -14,6 +14,10 @@ export async function POST(request: NextRequest) {
 
   const body: IncrementViewsPayload = await request.json();
 
+  if (!body.markerId || typeof body.markerId !== 'number') {
+    return new Response("Invalid markerId", { status: 400 });
+  }
+
   try {
     await incrementViews(body.markerId);
     return new Response("Views incremented", { status: 200 });
