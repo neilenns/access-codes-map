@@ -1,4 +1,3 @@
-import { handleIncrementViews } from "@/api/increment-views";
 import { LocationWithUsers } from "@/db/locations";
 import { useEditLocationStore } from "@/hooks/use-edit-location-store";
 import { useOnlineStatus } from "@/hooks/use-online-status";
@@ -89,8 +88,19 @@ export default function MarkerLayer({ locations }: MarkerLayerProperties) {
     }
 
     const source = (event.popup as PopupWithSource)._source;
+    const markerId = source.options.markerId;
 
-    handleIncrementViews(source.options.markerId).catch((error: unknown) => {
+    if (!markerId || typeof markerId !== "number") {
+      console.error("Invalid markerId:", markerId);
+      return;
+    }
+
+    // This is done with fetch instead of calling a server action to avoid page re-renders.
+    fetch("/api/increment-views", {
+      method: "POST",
+      body: JSON.stringify({ markerId }),
+      headers: { "Content-Type": "application/json" },
+    }).catch((error: unknown) => {
       console.error("Failed to increment views:", error);
     });
   });
