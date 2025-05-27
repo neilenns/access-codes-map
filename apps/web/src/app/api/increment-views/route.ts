@@ -16,10 +16,16 @@ export async function POST(request: NextRequest) {
   try {
     body = await request.json();
   } catch (error) {
+    console.error("Invalid JSON payload:", error);
     return new Response("Invalid JSON payload", { status: 400 });
   }
 
-  if (!body.markerId || typeof body.markerId !== 'number') {
+  if (
+    typeof body.markerId !== "number" ||
+    !Number.isInteger(body.markerId) ||
+    body.markerId < 0
+  ) {
+    console.error("Invalid markerId:", body.markerId);
     return new Response("Invalid markerId", { status: 400 });
   }
 
