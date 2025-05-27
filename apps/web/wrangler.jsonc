@@ -67,6 +67,10 @@
           "pattern": "accesscodes-prod.badcasserole.com",
           "custom_domain": true,
         },
+        {
+          "pattern": "accesscodes.badcasserole.com",
+          "custom_domain": true,
+        },
       ],
       "vars": {
         "CLOUDFLARE_DATABASE_ID": "e9eb4ee3-9028-429d-9d77-2c67e1cfb255",
