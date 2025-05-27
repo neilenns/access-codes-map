@@ -74,7 +74,7 @@
       ],
       "vars": {
         "CLOUDFLARE_DATABASE_ID": "e9eb4ee3-9028-429d-9d77-2c67e1cfb255",
-        "APP_BASE_URL": "https://accesscodes-prod.badcasserole.com/",
+        "APP_BASE_URL": "https://accesscodes.badcasserole.com/",
         "AUTH0_DOMAIN": "vatsim-edct.us.auth0.com",
         "AUTH0_AUDIENCE": "https://accesscodes.badcasserole.com/",
       },
