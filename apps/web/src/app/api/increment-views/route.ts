@@ -12,7 +12,12 @@ export async function POST(request: NextRequest) {
     return new Response("Unauthorized", { status: 401 });
   }
 
-  const body: IncrementViewsPayload = await request.json();
+  let body: IncrementViewsPayload;
+  try {
+    body = await request.json();
+  } catch (error) {
+    return new Response("Invalid JSON payload", { status: 400 });
+  }
 
   if (!body.markerId || typeof body.markerId !== 'number') {
     return new Response("Invalid markerId", { status: 400 });
