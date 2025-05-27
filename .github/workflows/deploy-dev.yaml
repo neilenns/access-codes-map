@@ -23,7 +23,6 @@ jobs:
       - name: Deploy to Cloudflare
         uses: ./.github/actions/cloudflare-deploy
         with:
-          app_base_url: ${{ vars.APP_BASE_URL }}
           cloudflare_account_id: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           cloudflare_api_token: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           cloudflare_d1_token: ${{ secrets.CLOUDFLARE_D1_TOKEN }}
