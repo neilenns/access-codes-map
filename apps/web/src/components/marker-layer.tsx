@@ -106,7 +106,7 @@ export default function MarkerLayer({ locations }: MarkerLayerProperties) {
   });
 
   return (
-    <MarkerClusterGroup>
+    <MarkerClusterGroup showCoverageOnHover={false}>
       {locations.map((location) => (
         <LocationMarker key={location.id} location={location} />
       ))}
