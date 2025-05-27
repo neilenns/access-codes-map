@@ -95,7 +95,7 @@ runs:
       run: pnpx turbo run cf:deploy
       shell: bash
       env:
-        APP_BASE_URL: ${{ input.app_base_url }}
+        APP_BASE_URL: ${{ inputs.app_base_url }}
         CLOUDFLARE_API_TOKEN: ${{ inputs.cloudflare_api_token }}
         CLOUDFLARE_ACCOUNT_ID: ${{ inputs.cloudflare_account_id }}
         CLOUDFLARE_D1_TOKEN: ${{ inputs.cloudflare_d1_token }}
