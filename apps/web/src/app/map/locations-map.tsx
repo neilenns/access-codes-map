@@ -1,4 +1,5 @@
 import EditLocationDialog from "@/components/edit-location-dialog";
+import { LogoutButton } from "@/components/logout";
 import MarkerLayer from "@/components/marker-layer";
 import { LocationsWithUsers } from "@/db/locations";
 import { useEditLocationStore } from "@/hooks/use-edit-location-store";
@@ -58,6 +59,7 @@ export default function LocationsMap({ locations }: MapProperties) {
           </LayersControl.BaseLayer>
         </LayersControl>
         <MarkerLayer locations={locations} />
+        <LogoutButton />
       </MapContainer>
       {/* The EditLocationDialog component is conditionally rendered based on whether the dialog is open. */}
       {/* This ensures it is unmounted when closed, resetting all of the dialog state between renders. */}
