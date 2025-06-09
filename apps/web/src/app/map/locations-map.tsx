@@ -4,6 +4,7 @@ import { CustomLocateControl } from "@/components/custom-locate-control";
 import DeleteLocationDialog from "@/components/delete-location-dialog";
 import EditLocationDialog from "@/components/edit-location-dialog";
 import { GeocodeControl } from "@/components/geocode-control";
+import { LogoutButton } from "@/components/logout-button";
 import MarkerLayer from "@/components/marker-layer";
 import OfflineBar from "@/components/offline-bar";
 import { LocationsWithUsers } from "@/db/locations";
@@ -82,6 +83,7 @@ export default function LocationsMap({ locations }: MapProperties) {
             },
           }}
         />
+        <LogoutButton />
       </MapContainer>
       {/* The EditLocationDialog component is conditionally rendered based on whether the dialog is open. */}
       {/* This ensures it is unmounted when closed, resetting all of the dialog state between renders. */}
