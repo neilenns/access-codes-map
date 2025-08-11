@@ -62,7 +62,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@workspace/eslint-config": "workspace:*",
-    "cross-env": "^7.0.3",
+    "cross-env": "^10.0.0",
     "drizzle-kit": "^0.31.1",
     "eslint": "^9",
     "eslint-config-next": "15.4.6",
