@@ -34,6 +34,10 @@
       "groupSlug": "all-minor-patch",
       "matchCurrentVersion": "!/^0/",
       "matchUpdateTypes": ["minor", "patch"]
+    },
+    {
+      "allowedVersions": "15.3.3",
+      "matchPackageNames": ["next"]
     }
   ]
 }
