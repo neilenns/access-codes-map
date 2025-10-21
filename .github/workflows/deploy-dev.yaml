@@ -13,6 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: dev
+      url: https://accesscodes-dev.badcasserole.com
     permissions:
       contents: read
 
