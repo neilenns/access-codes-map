@@ -36,6 +36,20 @@
       "matchUpdateTypes": ["minor", "patch"]
     },
     {
+      "automerge": true,
+      "groupName": "lucide-react updates",
+      "groupSlug": "lucide-react",
+      "matchPackageNames": ["lucide-react"],
+      "matchUpdateTypes": ["minor", "patch"]
+    },
+    {
+      "automerge": true,
+      "groupName": "leaflet.locatecontrol updates",
+      "groupSlug": "leaflet-locatecontrol",
+      "matchPackageNames": ["leaflet.locatecontrol"],
+      "matchUpdateTypes": ["minor", "patch"]
+    },
+    {
       "allowedVersions": "15.3.3",
       "matchPackageNames": ["next"]
     }
