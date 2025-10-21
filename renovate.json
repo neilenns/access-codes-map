@@ -1,6 +1,10 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:recommended", "schedule:weekly", "schedule:automergeWeekly"],
+  "extends": [
+    "config:recommended",
+    "schedule:weekly",
+    "schedule:automergeWeekly"
+  ],
   "labels": ["dependencies"],
   "packageRules": [
     {
@@ -19,10 +23,35 @@
     },
     {
       "automerge": true,
+      "groupName": "pnpm updates",
+      "groupSlug": "pnpm",
+      "matchPackageNames": ["pnpm"]
+    },
+    {
+      "automerge": true,
+      "excludePackageNames": ["pnpm", "eslint-plugin{/,}**"],
       "groupName": "all minor and patch dependencies",
       "groupSlug": "all-minor-patch",
       "matchCurrentVersion": "!/^0/",
       "matchUpdateTypes": ["minor", "patch"]
+    },
+    {
+      "automerge": true,
+      "groupName": "lucide-react updates",
+      "groupSlug": "lucide-react",
+      "matchPackageNames": ["lucide-react"],
+      "matchUpdateTypes": ["minor", "patch"]
+    },
+    {
+      "automerge": true,
+      "groupName": "leaflet.locatecontrol updates",
+      "groupSlug": "leaflet-locatecontrol",
+      "matchPackageNames": ["leaflet.locatecontrol"],
+      "matchUpdateTypes": ["minor", "patch"]
+    },
+    {
+      "allowedVersions": "15.3.3",
+      "matchPackageNames": ["next"]
     }
   ]
 }
