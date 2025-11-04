@@ -1,6 +1,3 @@
 packages:
   - "apps/*"
   - "packages/*"
-
-overrides:
-  "eslint@^9": "9.38.0"
