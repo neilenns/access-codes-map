@@ -102,8 +102,8 @@ importers:
         specifier: ^4.2.0
         version: 4.2.2
       leaflet.locatecontrol:
-        specifier: ^0.84.2
-        version: 0.84.2
+        specifier: ^0.85.0
+        version: 0.85.1
       lucide-react:
         specifier: ^0.541.0
         version: 0.541.0(react@19.2.0)
@@ -4347,8 +4347,8 @@ packages:
   leaflet-geosearch@4.2.2:
     resolution: {integrity: sha512-847zdoX0SJcDCwPmbjO0C8ngPby14bYl7vfY4fLAKLi+AlIa2kWX2FXChu+kwzSQp45IF3buluS4YwbYITGkwA==}
 
-  leaflet.locatecontrol@0.84.2:
-    resolution: {integrity: sha512-Tv0S2bAhpFgZYyyfPgeVhb3hPr9CnlcP15EpMQd9m5vA+aALhM6key1ucfnnD7n09AEeNEmIFe71T4V18Kpu7g==}
+  leaflet.locatecontrol@0.85.1:
+    resolution: {integrity: sha512-aB2qrwZO7Vs4EbWja6pyGy6Y1Mr2yeOqH3PN+Ocnjb4pgpiwYsX1AOI0mppVYzUTO2zwjafxVTOffiwEE32udA==}
 
   leaflet.markercluster@1.5.3:
     resolution: {integrity: sha512-vPTw/Bndq7eQHjLBVlWpnGeLa3t+3zGiuM7fJwCkiMFq+nmRuG3RI3f7f4N4TDX7T4NpbAXpR2+NTRSEGfCSeA==}
@@ -10916,7 +10916,7 @@ snapshots:
       '@googlemaps/js-api-loader': 1.16.8
       leaflet: 1.9.4
 
-  leaflet.locatecontrol@0.84.2: {}
+  leaflet.locatecontrol@0.85.1: {}
 
   leaflet.markercluster@1.5.3(leaflet@1.9.4):
     dependencies:
