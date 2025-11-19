@@ -6,7 +6,7 @@
     "@turbo/gen": "^2.5.1",
     "cross-env": "^10.0.0",
     "eslint": "^9.25.1",
-    "markdownlint": "^0.38.0",
+    "markdownlint": "^0.39.0",
     "markdownlint-cli": "^0.45.0",
     "prettier": "^3.5.3",
     "prettier-plugin-multiline-arrays": "^4.0.3",
