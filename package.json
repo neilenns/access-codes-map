@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "lint:md": "markdownlint '**/*.md' --ignore node_modules"
+    "lint:md": "markdownlint '**/*.md'"
   },
   "devDependencies": {
     "@turbo/gen": "^2.5.1",
