@@ -51,10 +51,13 @@
     },
     {
       "automerge": true,
+      "automergeSchedule": [
+        "* 0-3 * * *"
+      ],
       "groupName": "next patch updates",
+      "groupSlug": "next-patch",
       "matchPackageNames": ["next"],
-      "matchUpdateTypes": ["patch"],
-      "schedule": ["daily"]
+      "matchUpdateTypes": ["patch"]
     }
   ]
 }
