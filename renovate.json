@@ -50,8 +50,11 @@
       "matchUpdateTypes": ["minor", "patch"]
     },
     {
-      "allowedVersions": "15.3.3",
-      "matchPackageNames": ["next"]
+      "automerge": true,
+      "groupName": "next patch updates",
+      "matchPackageNames": ["next"],
+      "matchUpdateTypes": ["patch"],
+      "schedule": ["daily"]
     }
   ]
 }
