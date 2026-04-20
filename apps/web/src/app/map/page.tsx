@@ -2,11 +2,15 @@ import { getAllLocations } from "@/db/locations";
 import ClientSection from "./client-section";
 
 export default async function MapPage() {
-  try {
-    const locations = await getAllLocations();
+  type LocationsResult =
+    | { ok: true; locations: Awaited<ReturnType<typeof getAllLocations>> }
+    | { ok: false };
 
-    return <ClientSection locations={locations} />;
-  } catch {
+  const locationsResult = await getAllLocations()
+    .then((locations) => ({ ok: true, locations } as const))
+    .catch(() => ({ ok: false } as const satisfies LocationsResult));
+
+  if (!locationsResult.ok) {
     return (
       <div
         role="alert"
@@ -17,4 +21,6 @@ export default async function MapPage() {
       </div>
     );
   }
+
+  return <ClientSection locations={locationsResult.locations} />;
 }
