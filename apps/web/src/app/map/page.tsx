@@ -2,10 +2,10 @@ import { getAllLocations } from "@/db/locations";
 import ClientSection from "./client-section";
 
 export default async function MapPage() {
-  try {
-    const locations = await getAllLocations();
+  let locations;
 
-    return <ClientSection locations={locations} />;
+  try {
+    locations = await getAllLocations();
   } catch {
     return (
       <div
@@ -17,4 +17,6 @@ export default async function MapPage() {
       </div>
     );
   }
+
+  return <ClientSection locations={locations} />;
 }
