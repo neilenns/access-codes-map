@@ -103,7 +103,7 @@ importers:
         version: 4.4.0
       leaflet.locatecontrol:
         specifier: ^0.90.0
-        version: 0.90.0(leaflet@1.9.4)
+        version: 0.90.1(leaflet@1.9.4)
       lucide-react:
         specifier: ^0.577.0
         version: 0.577.0(react@19.2.8)
@@ -4626,8 +4626,8 @@ packages:
   leaflet-geosearch@4.4.0:
     resolution: {integrity: sha512-Pt/3JU0Oxvk+5ccGChNOV8yxk+Vl+3P83drGwW8/6ugF+K7zKPkx3naGDbPdhfeUmy+QuSCeVdvjN1jLCgwbaQ==}
 
-  leaflet.locatecontrol@0.90.0:
-    resolution: {integrity: sha512-yzgKyOXVRgALmo38ZhPf+2QgYE3pA/rrVSE0CyZhsSAzlnwPTZ1sfZLOFXTH20XLNNw1SX7AuMRLu0LZkWNakg==}
+  leaflet.locatecontrol@0.90.1:
+    resolution: {integrity: sha512-i8HsspXuYsjOTyDKQKyAgXKxIRjYeW/9FynXgYiVnVKH5mWojlJ1bF/S1S9Z++Qkl5cEKtba+kQdRLBP+HhPnQ==}
     peerDependencies:
       leaflet: ^1.9.0 || >=2.0.0-alpha.1
 
@@ -10307,7 +10307,7 @@ snapshots:
       '@googlemaps/js-api-loader': 1.16.10
       leaflet: 1.9.4
 
-  leaflet.locatecontrol@0.90.0(leaflet@1.9.4):
+  leaflet.locatecontrol@0.90.1(leaflet@1.9.4):
     dependencies:
       leaflet: 1.9.4
 
