@@ -46,7 +46,7 @@ export default function LocationMarker({ location }: LocationMarkerProperties) {
           <p className="text-sm whitespace-pre-line">{location.note}</p>
           <p className="text-xs italic text-gray-500">
             Last modified by {location.modifiedBy?.name ?? "unknown"} on{" "}
-            {new Date(location.lastModified).toISOString().split("T")[0]}.
+            {new Date(location.lastModified).toISOString().split("T", 1)[0]}.
           </p>
           <div className="flex justify-center mt-4 space-x-2">
             {permissionsStatus[Permissions.EditCodes] && (

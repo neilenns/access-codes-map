@@ -20,8 +20,8 @@ export interface MapProperties {
 
 // Seattle, WA
 const DEFAULT_CENTER: L.LatLngExpression = [
-  47.654_961_858_209_56,
-  -122.252_018_473_532_25,
+  47.65496185820956,
+  -122.25201847353225,
 ];
 
 const DEFAULT_ZOOM = 11;
