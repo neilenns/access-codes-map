@@ -29,7 +29,7 @@ export const convertToBoolean = (value: unknown) => {
 
   if (typeof value === "string") {
     const normalized = value.toLowerCase().trim();
-    return normalized === "true" || normalized === "yes" || normalized === "1";
+    return ["true", "yes", "1"].includes(normalized);
   }
 
   return false;
